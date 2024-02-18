@@ -1,0 +1,2 @@
+g++ -O3 basic_dbscan.cpp -o basic_dbscan -std=c++17
+./basic_dbscan <input_filename>

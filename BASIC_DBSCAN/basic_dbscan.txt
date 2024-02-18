@@ -1,0 +1,2 @@
+BASIC_DBSCAN execution time: 1146 milliseconds
+Clustering results have been written to ../OUTPUTS/random_points_clusters.csv
