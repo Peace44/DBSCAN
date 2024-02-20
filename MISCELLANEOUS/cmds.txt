@@ -1,2 +1,3 @@
 g++ -O3 basic_dbscan.cpp -o basic_dbscan -std=c++17
 ./basic_dbscan <input_filename>
+g++ -O3 mlpack_dbscan.cpp -o mlpack_dbscan -larmadillo -lmlpack

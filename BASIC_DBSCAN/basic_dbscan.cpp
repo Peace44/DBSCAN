@@ -172,7 +172,8 @@ int main(int argc, char *argv[]) {
     // Write the clustered points to CSV
     write_points_to_csv(output_filename, points);
     std::cout << "Clustering results have been written to " << output_filename << std::endl;
-
+    std::cout << "\n" << std::endl;
+    
     return 0;
 }
 
