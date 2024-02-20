@@ -43,6 +43,7 @@ input_files=($input_dir/*)
 # Run benchmarks for each dataset
 for input_file in "${input_files[@]}"; do
     run $input_file $output_file
+    echo "'$input_file' done!"
 done
 
 echo "Check the '$output_file' file!"

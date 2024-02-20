@@ -1,1 +1,12 @@
-
+BASIC_DBSCAN execution time: 20286 milliseconds
+Clustering results have been written to ./BASIC_DBSCAN/../OUTPUTS/100000randPtsClusters.csv
+Execution time for dataset ./BASIC_DBSCAN/../INPUTS/100000randPts.csv: 20419 ms
+BASIC_DBSCAN execution time: 199 milliseconds
+Clustering results have been written to ./BASIC_DBSCAN/../OUTPUTS/10000randPtsClusters.csv
+Execution time for dataset ./BASIC_DBSCAN/../INPUTS/10000randPts.csv: 217 ms
+BASIC_DBSCAN execution time: 1 milliseconds
+Clustering results have been written to ./BASIC_DBSCAN/../OUTPUTS/1000randPtsClusters.csv
+Execution time for dataset ./BASIC_DBSCAN/../INPUTS/1000randPts.csv: 7 ms
+BASIC_DBSCAN execution time: 783 milliseconds
+Clustering results have been written to ./BASIC_DBSCAN/../OUTPUTS/20000randPtsClusters.csv
+Execution time for dataset ./BASIC_DBSCAN/../INPUTS/20000randPts.csv: 817 ms
