@@ -153,7 +153,7 @@ int main(int argc, char *argv[]) {
     // Replace "INPUTS" with "OUTPUTS" in the baseName
     std::size_t inputsPos = baseName.find("INPUTS");
     if (inputsPos != std::string::npos) baseName.replace(inputsPos, strlen("INPUTS"), "OUTPUTS");
-    std::string output_filename = baseName + "_clusters" + extension;
+    std::string output_filename = baseName + "Clusters" + extension;
 
     // Read points from CSV
     std::vector<Point3D> points = read_points_from_csv(input_filename);
