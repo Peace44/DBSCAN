@@ -32,12 +32,17 @@ run() {
 
 # Output file
 output_file="$SCRIPT_DIR/basic_dbscan.txt"
-input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
 
 # Ensure the output file is empty
 > $output_file
 
-# Run benchmarks
-run $input_file $output_file
+# Automatically include all files from the INPUTS directory
+input_dir="$SCRIPT_DIR/../INPUTS"
+input_files=($input_dir/*)
+
+# Run benchmarks for each dataset
+for input_file in "${input_files[@]}"; do
+    run $input_file $output_file
+done
 
 echo "Check the '$output_file' file!"
