@@ -4,7 +4,7 @@
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 # Get the paths of the program & the exe
-PROG_CPP=$SCRIPT_DIR/basic_dbscan.cpp
+PROG_CPP=$SCRIPT_DIR/basic_dbscan_opt.cpp
 PROG=$SCRIPT_DIR/basic_dbscan
 
 # Compile the basic_dbscan.cpp program
@@ -40,4 +40,4 @@ input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
 # Run benchmarks
 run $input_file $output_file
 
-echo "Check the '$output_file' file!"
+echo "built $PROG_CPP Check the '$output_file' file!"
