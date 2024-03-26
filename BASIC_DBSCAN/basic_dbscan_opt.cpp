@@ -9,15 +9,20 @@
 #include <charconv>
 #include <chrono>
 
+ #define KDTREE true
+
+ #if KDTREE
+ #include "../KDTREE/KDTree.h"
+ #endif
 
 const int NOISE = -1;
 const int UNCLASSIFIED = 0;
 
 
-
 struct Point3D {
     double x, y, z;
     int cluster = UNCLASSIFIED;
+   
 };
 
 
@@ -30,16 +35,31 @@ double euclidean_distance_sqr(const Point3D& a, const Point3D& b) {
     return pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2);
 }
 
-bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts) {
+
+bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, kdtree* tree) {
     std::vector<int> seeds;
     const double epsSquared = eps * eps; // Precompute eps squared
 
+    #if KDTREE
+    std::vector<double> query = {points[point_id].x, points[point_id].y, points[point_id].z};
+    kdres *result;
+    result = kd_nearest_range(tree, &query[0], epsSquared);;
     
+    if (result == nullptr) {
+        return false;
+    }
+
+    for (int i = 0; i < kd_res_size(result); ++i) {
+        seeds.push_back((int) kd_res_item(result, i));
+    }
+    kd_res_free(result);
+    #else    
     for (auto  it = points.begin(); it != points.end(); ++it) {
         if (euclidean_distance_sqr(points[point_id], *it) < epsSquared) {
             seeds.push_back(std::distance(points.begin(), it));
         }
     }
+    #endif
 
     if (seeds.size() < min_pts) {
         points[point_id].cluster = NOISE;
@@ -85,11 +105,27 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
 
 void dbscan(std::vector<Point3D>& points, double eps, int min_pts) {
     int cluster = 1;
+    
+    #if KDTREE
+    kdtree* tree = kd_create(3); // Build the KD-tree
+    //populate kdtree
+    for (size_t i = 0; i < points.size(); i++) {
+        double pos[3] = {points[i].x, points[i].y, points[i].z};
+        kd_insert(tree, pos, (void*)&points[i]);
+    }
+
+    #endif
     for (int i = 0; i < points.size(); i++) {
         if (points[i].cluster == UNCLASSIFIED) {
-            if (expand_cluster(points, i, cluster, eps, min_pts)) {
+            #if KDTREE
+            if (expand_cluster(points, i, cluster, eps, min_pts, tree)) {
                 cluster++;
             }
+            #else
+            if (expand_cluster(points, i, cluster, eps, min_pts, nullptr)) {
+                cluster++;
+            }
+            #endif
         }
     }
 }
@@ -108,13 +144,14 @@ std::vector<Point3D> read_points_from_csv(const std::string& filename) {
     std::string line;
     while (std::getline(file, line)) {
         Point3D point;
+  
 
         char* end; // Temporary buffer for parsing numbers
-
+    
         point.x = std::strtod(line.c_str(), &end);
         point.y = std::strtod(end + 1, &end);
         point.z = std::strtod(end + 1, nullptr);
-
+       
         points.push_back(point);
     }
 
