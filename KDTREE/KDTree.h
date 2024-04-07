@@ -40,7 +40,7 @@ struct kdnode {
     double *pos;
     int dir;
     void *data;
-
+    int point_Id;
     struct kdnode *left, *right;    /* negative/positive side */
 };
 
@@ -80,8 +80,9 @@ void kd_clear(struct kdtree *tree);
 void kd_data_destructor(struct kdtree *tree, void (*destr)(void*));
 
 /* insert a node, specifying its position, and optional data */
-int kd_insert(struct kdtree *tree, const double *pos, void *data);
-
+//int kd_insert(struct kdtree *tree, const double *pos, void *data);
+//ADDED THIS
+int kd_insert(struct kdtree *tree, const double *pos, void *data, int point_id);
 /* Find the nearest node from a given point.
  *
  * This function returns a pointer to a result set with at most one element.
@@ -138,6 +139,8 @@ void *kd_res_item(struct kdres *set, double *pos);
 /* equivalent to kd_res_item(set, 0) */
 void *kd_res_item_data(struct kdres *set);
 
+/*ADDED ; retrieve point index of the current result set item*/
+int kd_res_item_index(struct kdres *set, double *pos);
 
 #ifdef __cplusplus
 }

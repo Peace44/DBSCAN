@@ -38,6 +38,7 @@ OF SUCH DAMAGE.
 
 static void clear_rec(struct kdnode *node, void (*destr)(void*));
 static int insert_rec(struct kdnode **node, const double *pos, void *data, int dir, int dim);
+static int insert_rec(struct kdnode **node, const double *pos, void *data, int dir, int dim, int i);
 static int rlist_insert(struct res_node *list, struct kdnode *item, double dist_sq);
 static void clear_results(struct kdres *set);
 
@@ -130,10 +131,56 @@ static int insert_rec(struct kdnode **nptr, const double *pos, void *data, int d
     }
     return insert_rec(&(*nptr)->right, pos, data, new_dir, dim);
 }
+//ADDED: insert with point id
+static int insert_rec(struct kdnode **nptr, const double *pos, void *data, int dir, int dim, int i)
+{
+    int new_dir;
+    struct kdnode *node;
 
-int kd_insert(struct kdtree *tree, const double *pos, void *data)
+    if(!*nptr) {
+        if(!(node = new kdnode)) {
+            return -1;
+        }
+        if(!(node->pos = new double[dim])) {
+            delete[] node;
+            return -1;
+        }
+        memcpy(node->pos, pos, dim * sizeof *node->pos);
+        node->data = data;
+        node->dir = dir;
+        node->left = node->right = 0;
+        node->point_Id = i;
+        *nptr = node;
+        return 0;
+    }
+
+    node = *nptr;
+    new_dir = (node->dir + 1) % dim;
+    if(pos[node->dir] < node->pos[node->dir]) {
+        return insert_rec(&(*nptr)->left, pos, data, new_dir, dim, i);
+    }
+    return insert_rec(&(*nptr)->right, pos, data, new_dir, dim, i);
+}
+
+/*int kd_insert(struct kdtree *tree, const double *pos, void *data)
 {
     if (insert_rec(&tree->root, pos, data, 0, tree->dim)) {
+        return -1;
+    }
+
+    if (tree->rect == 0) {
+        tree->rect = hyperrect_create(tree->dim, pos, pos);
+    } else {
+        hyperrect_extend(tree->rect, pos);
+    }
+
+    return 0;
+}
+*/
+// ADDED: insert with index
+int kd_insert(struct kdtree *tree, const double *pos, void *data, int point_id)
+{
+    if (insert_rec(&tree->root, pos, data, 0, tree->dim, point_id)) {
         return -1;
     }
 
@@ -405,11 +452,23 @@ void *kd_res_item(struct kdres *rset, double *pos)
     }
     return 0;
 }
+//ADDED : retrieve point index of the current result set item
+int kd_res_item_index(struct kdres *rset, double *pos)
+{
+    if(rset->riter) {
+        if(pos) {
+            memcpy(pos, rset->riter->item->pos, rset->tree->dim * sizeof *pos);
+        }
+        return rset->riter->item->point_Id;
+    }
+    return 0;
+}
 
 void *kd_res_item_data(struct kdres *set)
 {
     return kd_res_item(set, 0);
 }
+
 
 /* ---- hyperrectangle helpers ---- */
 static struct kdhyperrect* hyperrect_create(int dim, const double *min, const double *max)
