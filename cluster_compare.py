@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from sklearn.cluster import DBSCAN
 from sklearn.metrics import rand_score
 from sklearn.preprocessing import StandardScaler
@@ -15,9 +14,8 @@ points = df.values[:, :3]  # Assuming the points are in the first three columns
 #points_scaled = scaler.fit_transform(points)
 
 # Step 2: Perform DBSCAN clustering
-dbscan = DBSCAN(eps=2.0, min_samples=2)  # Adjust these parameters as needed
+dbscan = DBSCAN(eps=2.0, min_samples=2) 
 clusters = dbscan.fit_predict(points)
-print(clusters)
 
 # Step 3: Load the dataset with existing cluster assignments
 df_clusters = pd.read_csv('OUTPUTS/random_points_clusters.csv', header=None)
