@@ -9,9 +9,6 @@ df = pd.read_csv('INPUTS/random_points.csv', header=None)
 df = df.iloc[1:]
 points = df.values[:, :3]  # Assuming the points are in the first three columns
 
-# It's often a good idea to scale the data for clustering algorithms
-#scaler = StandardScaler()
-#points_scaled = scaler.fit_transform(points)
 
 # Step 2: Perform DBSCAN clustering
 dbscan = DBSCAN(eps=2.0, min_samples=2) 
