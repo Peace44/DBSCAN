@@ -4,11 +4,12 @@
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 # Get the paths of the program & the exe
-PROG_CPP=$SCRIPT_DIR/basic_dbscan_opt.cpp
-PROG=$SCRIPT_DIR/basic_dbscan
+PROG_CPP=$SCRIPT_DIR/basic_dbscan_KDTrees.cpp
+PROG=$SCRIPT_DIR/basic_dbscan_KDTrees
+KDTREE_CPP=$SCRIPT_DIR/KDTree.cpp
 
 # Compile the basic_dbscan.cpp program
-g++ -O3 $PROG_CPP -o $PROG -std=c++17
+g++ -O3 $PROG_CPP $KDTREE_CPP -o $PROG -std=c++17
 
 run() {
     dataset_name=$1
@@ -31,7 +32,7 @@ run() {
 }
 
 # Output file
-output_file="$SCRIPT_DIR/basic_dbscan.txt"
+output_file="$SCRIPT_DIR/KDTREE.txt"
 input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
 
 # Ensure the output file is empty
@@ -41,4 +42,3 @@ input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
 run $input_file $output_file
 
 echo "built $PROG_CPP Check the '$output_file' file!"
-
