@@ -33,27 +33,26 @@ double euclidean_distance_sqr(const Point3D& a, const Point3D& b) {
 
 bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, kdtree* tree) {
   
-    const double epsSquared = eps * eps; // Precompute eps squared
-
+   // const double epsSquared = eps * eps; // Precompute eps squared
+    const double epsSquared = pow(eps, 2); // Precompute eps squared
     //seeds contains pointer to  kdtrees items
     std::vector<int> seeds;
 
     double query[3] = {points[point_id].x, points[point_id].y, points[point_id].z};
-    kdres *result;
-    result = kd_nearest_range(tree, query, epsSquared);;
+    kdres *tree_search;
+    tree_search = kd_nearest_range(tree, query, epsSquared);;
     
-    if (result == nullptr) {
+    if (tree_search == nullptr) {
         std::cout << "result is null" << std::endl;
         return false;
     }
 
-    while (!kd_res_end(result)) {
-        //void* index_ptr = kd_res_item(result, NULL); // Get the pointer to the index
-        int index = kd_res_item_index(result, NULL);
+    while (!kd_res_end(tree_search)) {
+        int index = kd_res_item_index(tree_search, NULL);
         seeds.push_back(index);
-        kd_res_next(result);
+        kd_res_next(tree_search);
     }
-    kd_res_free(result);
+    kd_res_free(tree_search);
 
 
     if (seeds.size() < min_pts) {
@@ -75,15 +74,23 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
         seeds.erase(seeds.begin());
 
         std::vector<int> result;
-        for (int i = 0; i < points.size(); i++) {
-            if (euclidean_distance_sqr(points[current_point], points[i]) < epsSquared) {
-                result.push_back(i);
-            }
+        //redo kdtree search
+        double query[3] = {points[current_point].x, points[current_point].y, points[current_point].z};
+        kdres *tree_search;
+        tree_search = kd_nearest_range(tree, query, epsSquared);;
+
+        while (!kd_res_end(tree_search)) {
+            int index = kd_res_item_index(tree_search, NULL);
+            result.push_back(index);
+            kd_res_next(tree_search);
         }
+        kd_res_free(tree_search);
 
         if (result.size() >= min_pts) {
-            for (int i = 0; i < result.size(); i++) {
-                int result_point = result[i];
+           // for (int i = 0; i < result.size(); i++) {
+            for (auto i = result.begin(); i != result.end(); ++i) {
+                
+                int result_point = *i;
                 if (points[result_point].cluster == UNCLASSIFIED || points[result_point].cluster == NOISE) {
                     if (points[result_point].cluster == UNCLASSIFIED) {
                         seeds.push_back(result_point);
