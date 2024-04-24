@@ -174,8 +174,8 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename>" << std::endl;
+    if (argc < 4) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
         return 1;
     }
 
@@ -195,8 +195,8 @@ int main(int argc, char *argv[]) {
     std::vector<Point3D> points = read_points_from_csv(input_filename);
 
     // Parameters for DBSCAN
-    double eps = 2.0; // Adjust based on your dataset
-    int min_pts = 2; // Adjust based on your dataset
+    double eps = std::atof(argv[2]); // Adjust based on your dataset
+    int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
 
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
     dbscan(points, eps, min_pts); // Apply DBSCAN

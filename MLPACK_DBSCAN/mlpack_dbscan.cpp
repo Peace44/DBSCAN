@@ -40,8 +40,8 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename>" << std::endl;
+    if (argc < 4) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
         return 1;
     }
 
@@ -68,8 +68,8 @@ int main(int argc, char *argv[]) {
     dataset = dataset.t(); // Transpose the dataset because it's loaded with each point as a row, and we need points as cols for mlpack
 
     // Parameters for DBSCAN
-    double eps = 2.0; // Adjust based on your dataset
-    int min_pts = 5; // Adjust based on your dataset
+    double eps = std::atof(argv[2]); // Adjust based on your dataset
+    int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
 
     mlpack::dbscan::DBSCAN<> dbscan(eps, min_pts);
     arma::Row<size_t> assignments; // This will hold the cluster assignment
