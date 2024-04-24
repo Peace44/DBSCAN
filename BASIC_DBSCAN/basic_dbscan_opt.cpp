@@ -60,11 +60,13 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
         seeds.erase(seeds.begin());
 
         std::vector<int> result;
-        for (int i = 0; i < points.size(); i++) {
-            if (euclidean_distance_sqr(points[current_point], points[i]) < epsSquared) {
-                result.push_back(i);
+        
+        for (auto  it = points.begin(); it != points.end(); ++it) {
+            if (euclidean_distance_sqr(points[current_point], *it) < epsSquared) {
+                result.push_back(std::distance(points.begin(), it));
             }
         }
+
 
         if (result.size() >= min_pts) {
             for (int i = 0; i < result.size(); i++) {
@@ -143,8 +145,8 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename>" << std::endl;
+    if (argc < 4) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
         return 1;
     }
 
@@ -164,8 +166,8 @@ int main(int argc, char *argv[]) {
     std::vector<Point3D> points = read_points_from_csv(input_filename);
 
     // Parameters for DBSCAN
-    double eps = 2.0; // Adjust based on your dataset
-    int min_pts = 2; // Adjust based on your dataset
+    double eps = std::atoi(argv[2]); // Adjust based on your dataset
+    int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
 
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
     dbscan(points, eps, min_pts); // Apply DBSCAN
