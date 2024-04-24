@@ -2,6 +2,10 @@
 
 # Define an array with script names
 scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "KDTREE/KDTREE.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh")
+input_file="../INPUTS/random_points.csv"
+eps=2.0
+minPts=2
+
 # Empty the compare.txt file or create it if it doesn't exist
 > compare.txt
 
@@ -15,7 +19,7 @@ echo "Executing scripts..."
 # Execute each script in order and redirect output to compare.txt
 for script in "${scripts[@]}"; do
     echo "Running $script..." >> compare.txt
-    ./"$script" >> compare.txt 2>&1
+    ./"$script" $input_file $eps $minPts >> compare.txt 2>&1
     python3 ./cluster_compare.py >> compare.txt
     echo "" >> compare.txt
     if [ $? -ne 0 ]; then
