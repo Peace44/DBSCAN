@@ -13,12 +13,15 @@ g++ -O3 $PROG_CPP -o $PROG -std=c++17
 run() {
     dataset_name=$1
     output_file=$2
+    eps=$3
+    minPts=$4
+    
 
     # Start time in millisecs
     start=$(date +%s%3N)
 
     # Run the program and capture the output
-    $PROG $dataset_name | tee -a $output_file
+    $PROG $dataset_name $eps $minPts | tee -a $output_file
 
     # End time in millisecs
     end=$(date +%s%3N)
@@ -32,13 +35,18 @@ run() {
 
 # Output file
 output_file="$SCRIPT_DIR/basic_dbscan.txt"
-input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
+#input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
+input_file="$SCRIPT_DIR/"$1
+eps=$2
+minPts=$3
+
+
+
 
 # Ensure the output file is empty
 > $output_file
 
 # Run benchmarks
-run $input_file $output_file
+run $input_file $output_file $eps $minPts
 
-echo "built $PROG_CPP Check the '$output_file' file!"
-
+#echo "built $PROG_CPP Check the '$output_file' file!"
