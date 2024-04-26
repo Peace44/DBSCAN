@@ -1,0 +1,29 @@
+Generating results using 50 clusters and 2000 points per cluster
+eps = 2.0, minPts = 2
+
+Running BASIC_DBSCAN/basic_dbscan.sh...
+BASIC_DBSCAN execution time: 21598 milliseconds
+Clustering results have been written to ./BASIC_DBSCAN/../OUTPUTS/random_points_clusters.csv
+
+
+Execution time for dataset ./BASIC_DBSCAN/../INPUTS/random_points.csv: 21793 ms
+Rand Index: 1.0
+
+Running KDTREE/KDTREE.sh...
+BASIC_DBSCAN execution time: 16758 milliseconds
+Clustering results have been written to ./KDTREE/../OUTPUTS/random_points_clusters.csv
+
+
+Execution time for dataset ./KDTREE/../INPUTS/random_points.csv: 16958 ms
+built ./KDTREE/basic_dbscan_KDTrees.cpp Check the './KDTREE/KDTREE.txt' file!
+Rand Index: 0.9975907623076231
+
+Running MLPACK_DBSCAN/mlpack_dbscan.sh...
+MLPACK_DBSCAN execution time: 5104 milliseconds
+Clustering results have been written to ./MLPACK_DBSCAN/../OUTPUTS/random_points_clusters.csv
+
+
+Execution time for dataset ./MLPACK_DBSCAN/../INPUTS/random_points.csv: 5613 ms
+built  Check the './MLPACK_DBSCAN/mlpack_dbscan.txt' file!
+Rand Index: 1.0
+
