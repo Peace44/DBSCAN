@@ -4,8 +4,8 @@
 scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "KDTREE/KDTREE.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh")
 
 # generate random points : NUM_CLUSTERS * POINTS_PER_CLUSTER = number of points generated 
-NUM_CLUSTERS=50
-POINTS_PER_CLUSTER=2000
+NUM_CLUSTERS=25
+POINTS_PER_CLUSTER=1000
 
 # Generate random points
 echo "Generating the random points input file..."

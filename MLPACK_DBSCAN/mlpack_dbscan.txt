@@ -1,5 +1,5 @@
-MLPACK_DBSCAN execution time: 5104 milliseconds
+MLPACK_DBSCAN execution time: 656 milliseconds
 Clustering results have been written to ./MLPACK_DBSCAN/../OUTPUTS/random_points_clusters.csv
 
 
-Execution time for dataset ./MLPACK_DBSCAN/../INPUTS/random_points.csv: 5613 ms
+Execution time for dataset ./MLPACK_DBSCAN/../INPUTS/random_points.csv: 798 ms

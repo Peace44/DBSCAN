@@ -1,3 +1,15 @@
 g++ -O3 basic_dbscan.cpp -o basic_dbscan -std=c++17
 ./basic_dbscan <input_filename>
 g++ -O3 mlpack_dbscan.cpp -o mlpack_dbscan -larmadillo -lmlpack
+
+
+
+To test using ROS:
+   When you're inside /ros2_ws_lidar_processing run these:
+   	setup_ros
+	colcon build --packages-select clustering launcher
+	source install/setup.bash
+	ros2 launch launcher launch.py
+   Then open another terminal inside /Desktop/2023_07_29_cimitero/bags and run:
+   	setup_ros
+   	ros2 bag play ./bag_log_data_2023_07_29_17_26_32/ --topics /vimba_038/frame /vimba_039/frame  ouster/points
