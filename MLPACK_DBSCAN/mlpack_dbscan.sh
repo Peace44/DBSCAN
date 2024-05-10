@@ -44,5 +44,5 @@ minPts=$3
 # Run benchmarks
 run $input_file $output_file $eps $minPts
 
-echo "built $PROG_CPP Check the '$output_file' file!"
+# echo "built $PROG_CPP Check the '$output_file' file!"
 
