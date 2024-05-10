@@ -66,7 +66,7 @@ std::vector<int> initialize_core_points(std::vector<Point3D>& points, int m) {
 
 
 
-bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, double eps, int min_pts, std::vector<int>& core_points) {
+bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, double eps, int min_pts, const std::vector<int>& core_points) {
     std::vector<int> seeds;
     double epsSquared = eps * eps;
 
