@@ -63,9 +63,9 @@ std::vector<int> initialize_core_points(std::vector<Point3D>& points, int m) {
             }
         }
 
-        if (farthest_idx != -1) {
+        // if (farthest_idx != -1) {
             core_point_indices.push_back(farthest_idx);
-        }
+        // }
     }
 
     return core_point_indices;
@@ -106,19 +106,16 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
         std::vector<int> result;
         
         for (int idx : core_points) {
-            if (euclidean_distance_sqr(points[current_point], points[idx]) < epsSquared) {
+            if (euclidean_distance_sqr(points[current_point], points[idx]) < epsSquared && points[idx].cluster <= UNCLASSIFIED) {
                 result.push_back(idx);
             }
         }
 
         if (result.size() >= min_pts) {
-            for (int i : result) {
-                int result_point = result[i];
-                if (points[result_point].cluster == UNCLASSIFIED || points[result_point].cluster == NOISE) {
-                    if (points[result_point].cluster == UNCLASSIFIED) {
-                        seeds.push_back(result_point);
-                    }
-                    points[result_point].cluster = cluster;
+            for (int idx : result) {
+                if (points[idx].cluster <= UNCLASSIFIED) {
+                    points[idx].cluster = cluster;
+                    seeds.push_back(idx);
                 }
             }
         }
