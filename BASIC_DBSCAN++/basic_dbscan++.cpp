@@ -33,52 +33,43 @@ double euclidean_distance_sqr(const Point3D& a, const Point3D& b) {
 
 std::vector<int> initialize_core_points(std::vector<Point3D>& points, int m) {
     std::vector<int> core_point_indices;
-    std::random_device rd; // Obtain a random number from hardware
-    std::mt19937 eng(rd()); // Seed the generator
-    std::uniform_int_distribution<> distr(0, points.size() - 1); // Define the range
+    std::random_device rd;
+    std::mt19937 eng(rd());
+    std::uniform_int_distribution<> distr(0, points.size() - 1);
 
-    // Start with a random point
-    core_point_indices.push_back(distr(eng));
+    int first_index = distr(eng);
+    core_point_indices.push_back(first_index);  // Start with a random point
 
-    // Greedy K-center initialization
     while (core_point_indices.size() < m) {
         double max_dist = -1;
         int farthest_idx = -1;
 
         for (int i = 0; i < points.size(); ++i) {
             double min_dist_to_core = std::numeric_limits<double>::max();
-
-            // Calculate minimum distance to any of the current core points
             for (int core_idx : core_point_indices) {
                 double dist = euclidean_distance_sqr(points[i], points[core_idx]);
                 if (dist < min_dist_to_core) {
                     min_dist_to_core = dist;
                 }
             }
-
-            // Select the point with the maximum of these minimum distances
             if (min_dist_to_core > max_dist) {
                 max_dist = min_dist_to_core;
                 farthest_idx = i;
             }
         }
-
-        // if (farthest_idx != -1) {
+        if (farthest_idx != -1 && std::find(core_point_indices.begin(), core_point_indices.end(), farthest_idx) == core_point_indices.end()) {
             core_point_indices.push_back(farthest_idx);
-        // }
+        }
     }
-
     return core_point_indices;
 }
 
 
 
-
-bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, const std::vector<int>& core_points) {
+bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, double eps, int min_pts, std::vector<int>& core_points) {
     std::vector<int> seeds;
-    const double epsSquared = eps * eps; // Precompute eps squared
+    double epsSquared = eps * eps;
 
-    // Process only core points for efficiency
     for (int idx : core_points) {
         if (euclidean_distance_sqr(points[point_id], points[idx]) < epsSquared) {
             seeds.push_back(idx);
@@ -90,31 +81,27 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
         return false;
     }
 
-    // Assign the cluster id to seeds
     for (int i : seeds) {
-        points[i].cluster = cluster;
+        points[i].cluster = cluster_id;
     }
 
-    // Remove the original point from seeds
     seeds.erase(std::remove(seeds.begin(), seeds.end(), point_id), seeds.end());
 
-    // Process every seed point
     while (!seeds.empty()) {
         int current_point = seeds.front();
         seeds.erase(seeds.begin());
 
         std::vector<int> result;
-        
         for (int idx : core_points) {
-            if (euclidean_distance_sqr(points[current_point], points[idx]) < epsSquared && points[idx].cluster <= UNCLASSIFIED) {
+            if (euclidean_distance_sqr(points[current_point], points[idx]) < epsSquared && (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE)) {
                 result.push_back(idx);
             }
         }
 
         if (result.size() >= min_pts) {
             for (int idx : result) {
-                if (points[idx].cluster <= UNCLASSIFIED) {
-                    points[idx].cluster = cluster;
+                if (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE) {
+                    points[idx].cluster = cluster_id;
                     seeds.push_back(idx);
                 }
             }
@@ -126,11 +113,11 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
 
 
 void dbscan(std::vector<Point3D>& points, double eps, int min_pts, const std::vector<int>& core_points) {
-    int cluster = 1;
+    int cluster_id = 1;  // Start with cluster 1
     for (int idx : core_points) {
         if (points[idx].cluster == UNCLASSIFIED) {
-            if (expand_cluster(points, idx, cluster, eps, min_pts, core_points)) {
-                cluster++;
+            if (expand_cluster(points, idx, cluster_id, eps, min_pts, core_points)) {
+                cluster_id++;
             }
         }
     }
@@ -206,7 +193,7 @@ int main(int argc, char *argv[]) {
     // Parameters for DBSCAN
     double eps = std::atoi(argv[2]); // Adjust based on your dataset
     int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
-    int m = 100; // Number of core points to initialize
+    int m = 10; // Number of core points to initialize
 
     // Read points from CSV
     std::vector<Point3D> points = read_points_from_csv(input_filename);
