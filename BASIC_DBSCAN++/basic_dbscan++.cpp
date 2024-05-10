@@ -37,15 +37,40 @@ std::vector<int> initialize_core_points(std::vector<Point3D>& points, int m) {
     std::mt19937 eng(rd()); // Seed the generator
     std::uniform_int_distribution<> distr(0, points.size() - 1); // Define the range
 
-    // Implementing a simple random selection for now, replace with K-center for actual use
+    // Start with a random point
+    core_point_indices.push_back(distr(eng));
+
+    // Greedy K-center initialization
     while (core_point_indices.size() < m) {
-        int idx = distr(eng);
-        if (std::find(core_point_indices.begin(), core_point_indices.end(), idx) == core_point_indices.end()) {
-            core_point_indices.push_back(idx);
+        double max_dist = -1;
+        int farthest_idx = -1;
+
+        for (int i = 0; i < points.size(); ++i) {
+            double min_dist_to_core = std::numeric_limits<double>::max();
+
+            // Calculate minimum distance to any of the current core points
+            for (int core_idx : core_point_indices) {
+                double dist = euclidean_distance_sqr(points[i], points[core_idx]);
+                if (dist < min_dist_to_core) {
+                    min_dist_to_core = dist;
+                }
+            }
+
+            // Select the point with the maximum of these minimum distances
+            if (min_dist_to_core > max_dist) {
+                max_dist = min_dist_to_core;
+                farthest_idx = i;
+            }
+        }
+
+        if (farthest_idx != -1) {
+            core_point_indices.push_back(farthest_idx);
         }
     }
+
     return core_point_indices;
 }
+
 
 
 
