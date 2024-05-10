@@ -1,5 +1,3 @@
-BASIC_DBSCAN execution time: 1834 milliseconds
+BASIC_DBSCAN execution time: 1830 milliseconds
 Clustering results have been written to ./KDTREE/../OUTPUTS/random_points_clusters.csv
-
-
-Execution time for dataset ./KDTREE/../INPUTS/random_points.csv: 1888 ms
+Total execution time for dataset ./KDTREE/../INPUTS/random_points.csv: 1883 ms

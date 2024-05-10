@@ -1,29 +1,40 @@
 Generating results using 25 clusters and 1000 points per cluster
 eps = 2.0, minPts = 2
 
+
+
+------------------------------------------------------------------------------------------------
 Running BASIC_DBSCAN/basic_dbscan.sh...
-BASIC_DBSCAN execution time: 1415 milliseconds
+BASIC_DBSCAN execution time: 1432 milliseconds
 Clustering results have been written to ./BASIC_DBSCAN/../OUTPUTS/random_points_clusters.csv
 
 
-Execution time for dataset ./BASIC_DBSCAN/../INPUTS/random_points.csv: 1472 ms
+Total execution time for dataset ./BASIC_DBSCAN/../INPUTS/random_points.csv: 1487 ms
+built ./BASIC_DBSCAN/basic_dbscan_opt.cpp Check the './BASIC_DBSCAN/basic_dbscan.txt' file!
 Rand Index: 1.0
+------------------------------------------------------------------------------------------------
 
+
+
+------------------------------------------------------------------------------------------------
 Running KDTREE/KDTREE.sh...
-BASIC_DBSCAN execution time: 1834 milliseconds
+BASIC_DBSCAN execution time: 1830 milliseconds
 Clustering results have been written to ./KDTREE/../OUTPUTS/random_points_clusters.csv
-
-
-Execution time for dataset ./KDTREE/../INPUTS/random_points.csv: 1888 ms
+Total execution time for dataset ./KDTREE/../INPUTS/random_points.csv: 1883 ms
 built ./KDTREE/basic_dbscan_KDTrees.cpp Check the './KDTREE/KDTREE.txt' file!
 Rand Index: 0.9999646577863115
+------------------------------------------------------------------------------------------------
 
+
+
+------------------------------------------------------------------------------------------------
 Running MLPACK_DBSCAN/mlpack_dbscan.sh...
-MLPACK_DBSCAN execution time: 656 milliseconds
+MLPACK_DBSCAN execution time: 657 milliseconds
 Clustering results have been written to ./MLPACK_DBSCAN/../OUTPUTS/random_points_clusters.csv
-
-
-Execution time for dataset ./MLPACK_DBSCAN/../INPUTS/random_points.csv: 798 ms
+Total execution time for dataset ./MLPACK_DBSCAN/../INPUTS/random_points.csv: 762 ms
 built  Check the './MLPACK_DBSCAN/mlpack_dbscan.txt' file!
 Rand Index: 1.0
+------------------------------------------------------------------------------------------------
+
+
 
