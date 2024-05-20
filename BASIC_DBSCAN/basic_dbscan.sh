@@ -16,7 +16,6 @@ run() {
     eps=$3
     minPts=$4
     
-
     # Start time in millisecs
     start=$(date +%s%3N)
 
@@ -30,7 +29,7 @@ run() {
     exec_time=$((end - start))
 
     # Append exec time to the output file
-    echo "Execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
+    echo "Total execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
 }
 
 # Output file
@@ -40,13 +39,10 @@ input_file="$SCRIPT_DIR/"$1
 eps=$2
 minPts=$3
 
-
-
-
 # Ensure the output file is empty
 > $output_file
 
 # Run benchmarks
 run $input_file $output_file $eps $minPts
 
-#echo "built $PROG_CPP Check the '$output_file' file!"
+# echo "built $PROG_CPP Check the '$output_file' file!"

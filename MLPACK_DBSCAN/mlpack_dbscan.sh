@@ -28,7 +28,7 @@ run() {
     exec_time=$((end - start))
 
     # Append exec time to the output file
-    echo "Execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
+    echo "Total execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
 }
 
 # Output file
@@ -44,5 +44,5 @@ minPts=$3
 # Run benchmarks
 run $input_file $output_file $eps $minPts
 
-echo "built $PROG_CPP Check the '$output_file' file!"
+# echo "built $PROG_CPP Check the '$output_file' file!"
 

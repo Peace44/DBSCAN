@@ -203,12 +203,11 @@ int main(int argc, char *argv[]) {
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
     
-    std::cout << "BASIC_DBSCAN execution time: " << duration.count() << " milliseconds" << std::endl;
+    std::cout << "KD-TREE_DBSCAN execution time: " << duration.count() << " milliseconds" << std::endl;
     
     // Write the clustered points to CSV
     write_points_to_csv(output_filename, points);
-    std::cout << "Clustering results have been written to " << output_filename << std::endl;
-    std::cout << "\n" << std::endl;
+    // std::cout << "Clustering results have been written to " << output_filename << std::endl;
     
     return 0;
 }

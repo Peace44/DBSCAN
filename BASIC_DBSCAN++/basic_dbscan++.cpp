@@ -8,7 +8,9 @@
 #include <cstring>
 #include <charconv>
 #include <chrono>
-#include <unordered_set>
+#include <random>
+#include <limits>
+
 
 
 const int NOISE = -1;
@@ -23,63 +25,100 @@ struct Point3D {
 
 
 
-double euclideanDistance(const Point3D& a, const Point3D& b) {
-    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2));
+double euclidean_distance_sqr(const Point3D& a, const Point3D& b) {
+    return pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2);
 }
 
 
 
-// Function to find neighbors within ε distance
-std::vector<int> regionQuery(const std::vector<Point3D>& points, int pIdx, double eps) {
-    std::vector<int> neighbors;
-    for (size_t i = 0; i < points.size(); ++i) {
-        if (euclideanDistance(points[pIdx], points[i]) <= eps) {
-            neighbors.push_back(i);
-        }
-    }
-    return neighbors;
-}
+std::vector<int> initialize_core_points(std::vector<Point3D>& points, int m) {
+    std::vector<int> core_point_indices;
+    std::random_device rd;
+    std::mt19937 eng(rd());
+    std::uniform_int_distribution<> distr(0, points.size() - 1);
 
+    int first_index = distr(eng);
+    core_point_indices.push_back(first_index);  // Start with a random point
 
+    while (core_point_indices.size() < m) {
+        double max_dist = -1;
+        int farthest_idx = -1;
 
-// Core-point check function
-bool isCorePoint(const std::vector<Point3D>& points, int idx, double eps, int minPts) {
-    return regionQuery(points, idx, eps).size() >= minPts;
-}
-
-
-
-void dbscanPlusPlus(std::vector<Point3D>& points, double eps, int minPts, int m) {
-    // Random sampling of m points (simplified)
-    std::random_shuffle(points.begin(), points.end());
-    std::vector<Point3D> samplePoints(points.begin(), points.begin() + std::min(m, (int)points.size()));
-
-    // Identify core points and construct the graph (simplified representation)
-    std::unordered_set<int> corePointIndices;
-    for (int i = 0; i < samplePoints.size(); ++i) {
-        if (isCorePoint(points, i, eps, minPts)) {
-            corePointIndices.insert(i);
-        }
-    }
-
-    // Naive approach to cluster formation based on core points (for demonstration)
-    int clusterId = 1;
-    for (auto idx : corePointIndices) {
-        if (points[idx].cluster == UNCLASSIFIED) {
-            std::vector<int> neighbors = regionQuery(points, idx, eps);
-            if (neighbors.size() >= minPts) {
-                for (int neighborIdx : neighbors) {
-                    points[neighborIdx].cluster = clusterId;
+        for (int i = 0; i < points.size(); ++i) {
+            double min_dist_to_core = std::numeric_limits<double>::max();
+            for (int core_idx : core_point_indices) {
+                double dist = euclidean_distance_sqr(points[i], points[core_idx]);
+                if (dist < min_dist_to_core) {
+                    min_dist_to_core = dist;
                 }
-                ++clusterId;
+            }
+            if (min_dist_to_core > max_dist) {
+                max_dist = min_dist_to_core;
+                farthest_idx = i;
+            }
+        }
+        if (farthest_idx != -1 && std::find(core_point_indices.begin(), core_point_indices.end(), farthest_idx) == core_point_indices.end()) {
+            core_point_indices.push_back(farthest_idx);
+        }
+    }
+    return core_point_indices;
+}
+
+
+
+bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, double eps, int min_pts, const std::vector<int>& core_points) {
+    std::vector<int> seeds;
+    double epsSquared = eps * eps;
+
+    for (int idx : core_points) {
+        if (euclidean_distance_sqr(points[point_id], points[idx]) < epsSquared) {
+            seeds.push_back(idx);
+        }
+    }
+
+    if (seeds.size() < min_pts) {
+        points[point_id].cluster = NOISE;
+        return false;
+    }
+
+    for (int i : seeds) {
+        points[i].cluster = cluster_id;
+    }
+
+    seeds.erase(std::remove(seeds.begin(), seeds.end(), point_id), seeds.end());
+
+    while (!seeds.empty()) {
+        int current_point = seeds.front();
+        seeds.erase(seeds.begin());
+
+        std::vector<int> result;
+        for (int idx : core_points) {
+            if (euclidean_distance_sqr(points[current_point], points[idx]) < epsSquared && (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE)) {
+                result.push_back(idx);
+            }
+        }
+
+        if (result.size() >= min_pts) {
+            for (int idx : result) {
+                if (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE) {
+                    points[idx].cluster = cluster_id;
+                    seeds.push_back(idx);
+                }
             }
         }
     }
+    return true;
+}
 
-    // Assign non-core points to clusters or mark as noise (simplified)
-    for (size_t i = 0; i < points.size(); ++i) {
-        if (points[i].cluster == UNCLASSIFIED) {
-            points[i].cluster = NOISE;
+
+
+void dbscan(std::vector<Point3D>& points, double eps, int min_pts, const std::vector<int>& core_points) {
+    int cluster_id = 1;  // Start with cluster 1
+    for (int idx : core_points) {
+        if (points[idx].cluster == UNCLASSIFIED) {
+            if (expand_cluster(points, idx, cluster_id, eps, min_pts, core_points)) {
+                cluster_id++;
+            }
         }
     }
 }
@@ -134,11 +173,11 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename>" << std::endl;
+    if (argc < 4) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
         return 1;
     }
-
+    
     std::string input_filename = argv[1];
 
     // Generate output filename based on input filename
@@ -151,26 +190,25 @@ int main(int argc, char *argv[]) {
     if (inputsPos != std::string::npos) baseName.replace(inputsPos, strlen("INPUTS"), "OUTPUTS");
     std::string output_filename = baseName + "_clusters" + extension;
 
+    // Parameters for DBSCAN
+    double eps = std::atoi(argv[2]); // Adjust based on your dataset
+    int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
+    int m = 10; // Number of core points to initialize
+
     // Read points from CSV
     std::vector<Point3D> points = read_points_from_csv(input_filename);
-
-    // Parameters for DBSCAN
-    double eps = 2.0; // Adjust based on your dataset
-    int min_pts = 2; // Adjust based on your dataset
-    int m = 100; // Number of points to sample for DBSCAN++
-
+    std::vector<int> core_points = initialize_core_points(points, m);
+    
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
-    dbscanPlusPlus(points, eps, min_pts, m); // Apply DBSCAN++
+    dbscan(points, eps, min_pts, core_points);
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
     
     std::cout << "BASIC_DBSCAN++ execution time: " << duration.count() << " milliseconds" << std::endl;
-    
+
     // Write the clustered points to CSV
     write_points_to_csv(output_filename, points);
-    std::cout << "Clustering results have been written to " << output_filename << std::endl;
-    std::cout << "\n" << std::endl;
+    // std::cout << "Clustering results have been written to " << output_filename << std::endl;
 
     return 0;
 }
-
