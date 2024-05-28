@@ -1,2 +1,2 @@
-KD-TREE_DBSCAN execution time: 1220 milliseconds
-Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 1270 ms
+KD-TREE_DBSCAN execution time: 1187 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 1229 ms

@@ -5,8 +5,8 @@ eps = 2.0, minPts = 2
 
 ------------------------------------------------------------------------------------------------
 Running BASIC_DBSCAN/basic_dbscan.sh...
-BASIC_DBSCAN execution time: 814 milliseconds
-Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 856 ms
+BASIC_DBSCAN execution time: 824 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 866 ms
 Rand Index: 1.0
 ------------------------------------------------------------------------------------------------
 
@@ -14,8 +14,8 @@ Rand Index: 1.0
 
 ------------------------------------------------------------------------------------------------
 Running KDTREE/KDTREE.sh...
-KD-TREE_DBSCAN execution time: 1220 milliseconds
-Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 1270 ms
+KD-TREE_DBSCAN execution time: 1187 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 1229 ms
 Rand Index: 0.9999646577863115
 ------------------------------------------------------------------------------------------------
 
@@ -23,8 +23,8 @@ Rand Index: 0.9999646577863115
 
 ------------------------------------------------------------------------------------------------
 Running MLPACK_DBSCAN/mlpack_dbscan.sh...
-MLPACK_DBSCAN execution time: 422 milliseconds
-Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 490 ms
+MLPACK_DBSCAN execution time: 418 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 496 ms
 Rand Index: 1.0
 ------------------------------------------------------------------------------------------------
 
@@ -32,22 +32,22 @@ Rand Index: 1.0
 
 ------------------------------------------------------------------------------------------------
 Running HPDBSCAN/hpdbscan.sh...
-mkdir: cannot create directory ‘/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/hpdbscan/build’: File exists
+mkdir: cannot create directory ‘/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build’: File exists
 Computing cell space
-	Computing dimensions...[OK] in 0.002720
-	Computing cells...     [OK] in 0.000867
-	Sorting points...      [OK] in 0.002762
+	Computing dimensions...[OK] in 0.005872
+	Computing cells...     [OK] in 0.003326
+	Sorting points...      [OK] in 0.002639
 Clustering...
-	DBSCAN...              [OK] in 0.078382
-	Appyling rules...      [OK] in 0.005272
-	Recovering order...    [OK] in 0.003294
+	DBSCAN...              [OK] in 0.076533
+	Appyling rules...      [OK] in 0.002076
+	Recovering order...    [OK] in 0.002439
 Summary...
 	Clusters:       24
 	Cluster points: 24989
 	Noise points:   11
 	Core points:    24989
-Total time: 0.093797
-Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 109 ms
+Total time: 0.094847
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 128 ms
 Rand Index: 1.0
 ------------------------------------------------------------------------------------------------
 

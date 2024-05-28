@@ -1,15 +1,15 @@
 Computing cell space
-	Computing dimensions...[OK] in 0.002720
-	Computing cells...     [OK] in 0.000867
-	Sorting points...      [OK] in 0.002762
+	Computing dimensions...[OK] in 0.005872
+	Computing cells...     [OK] in 0.003326
+	Sorting points...      [OK] in 0.002639
 Clustering...
-	DBSCAN...              [OK] in 0.078382
-	Appyling rules...      [OK] in 0.005272
-	Recovering order...    [OK] in 0.003294
+	DBSCAN...              [OK] in 0.076533
+	Appyling rules...      [OK] in 0.002076
+	Recovering order...    [OK] in 0.002439
 Summary...
 	Clusters:       24
 	Cluster points: 24989
 	Noise points:   11
 	Core points:    24989
-Total time: 0.093797
-Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 109 ms
+Total time: 0.094847
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 128 ms

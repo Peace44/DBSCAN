@@ -1,2 +1,2 @@
-BASIC_DBSCAN execution time: 814 milliseconds
-Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 856 ms
+BASIC_DBSCAN execution time: 824 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 866 ms

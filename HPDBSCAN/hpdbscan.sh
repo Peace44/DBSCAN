@@ -2,16 +2,14 @@
 
 # Get the directory where the script is located
 SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
-HPDBSCAN_DIR=$SCRIPT_DIR/hpdbscan
-CSV_TO_HDF5_DIR=$SCRIPT_DIR/csv_to_hdf5
-BUILD_DIR=$HPDBSCAN_DIR/build
+BUILD_DIR=$SCRIPT_DIR/build
 
 # Compile the program
 mkdir $BUILD_DIR && cd $BUILD_DIR && cmake .. && make
 
 # Get the paths of the exe
 PROG=$BUILD_DIR/hpdbscan
-CSV_TO_HDF5_PROG=$CSV_TO_HDF5_DIR/csv_to_hdf5.py
+CSV_TO_HDF5_PROG=$SCRIPT_DIR/csv_to_hdf5.py
 
 run() {
     dataset_name=$1
