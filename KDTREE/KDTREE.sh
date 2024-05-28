@@ -1,15 +1,19 @@
 #!/bin/bash
 
 # Get the directory where the script is located
-SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 
 # Get the paths of the program & the exe
 PROG_CPP=$SCRIPT_DIR/basic_dbscan_KDTrees.cpp
 PROG=$SCRIPT_DIR/basic_dbscan_KDTrees
 KDTREE_CPP=$SCRIPT_DIR/KDTree.cpp
 
-# Compile the basic_dbscan.cpp program
+# Compile the program
 g++ -O3 $PROG_CPP $KDTREE_CPP -o $PROG -std=c++17
+if [[ $? -ne 0 ]]; then
+    echo "Compilation failed."
+    exit 1
+fi
 
 run() {
     dataset_name=$1
@@ -33,10 +37,14 @@ run() {
     echo "Total execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
 }
 
-# Output file
+# Ensure the correct number of arguments are provided
+if [[ $# -ne 3 ]]; then
+    echo "Usage: $0 <input_file> <eps> <minPts>"
+    exit 1
+fi
+
 output_file="$SCRIPT_DIR/KDTREE.txt"
-#input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
-input_file="$SCRIPT_DIR/"$1
+input_file=$(realpath "$SCRIPT_DIR/$1")
 eps=$2
 minPts=$3
 
@@ -46,4 +54,4 @@ minPts=$3
 # Run benchmarks
 run $input_file $output_file $eps $minPts
 
-# echo "built $PROG_CPP Check the '$output_file' file!"
+# echo "Completed. Check the '$output_file' file!"

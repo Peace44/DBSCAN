@@ -1,13 +1,18 @@
 #!/bin/bash
 
 # Get the directory where the script is located
-SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
+SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 
 # Get the paths of the program & the exe
 MLPACK_CPP=$SCRIPT_DIR/mlpack_dbscan.cpp
 PROG=$SCRIPT_DIR/mlpack_dbscan
 
+# Compile the program
 g++ -O3 -std=c++17 -o $PROG $MLPACK_CPP -larmadillo -lmlpack -fopenmp
+if [[ $? -ne 0 ]]; then
+    echo "Compilation failed."
+    exit 1
+fi
 
 run() {
     dataset_name=$1
@@ -31,10 +36,14 @@ run() {
     echo "Total execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
 }
 
-# Output file
+# Ensure the correct number of arguments are provided
+if [[ $# -ne 3 ]]; then
+    echo "Usage: $0 <input_file> <eps> <minPts>"
+    exit 1
+fi
+
 output_file="$SCRIPT_DIR/mlpack_dbscan.txt"
-#input_file="$SCRIPT_DIR/../INPUTS/random_points.csv"
-input_file="$SCRIPT_DIR/"$1
+input_file=$(realpath "$SCRIPT_DIR/$1")
 eps=$2
 minPts=$3
 
@@ -44,5 +53,5 @@ minPts=$3
 # Run benchmarks
 run $input_file $output_file $eps $minPts
 
-# echo "built $PROG_CPP Check the '$output_file' file!"
+# echo "Completed. Check the '$output_file' file!"
 
