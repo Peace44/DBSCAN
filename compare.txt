@@ -5,8 +5,8 @@ eps = 2.0, minPts = 2
 
 ------------------------------------------------------------------------------------------------
 Running BASIC_DBSCAN/basic_dbscan.sh...
-BASIC_DBSCAN execution time: 1415 milliseconds
-Total execution time for dataset ./BASIC_DBSCAN/../INPUTS/random_points.csv: 1468 ms
+BASIC_DBSCAN execution time: 814 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 856 ms
 Rand Index: 1.0
 ------------------------------------------------------------------------------------------------
 
@@ -14,8 +14,8 @@ Rand Index: 1.0
 
 ------------------------------------------------------------------------------------------------
 Running KDTREE/KDTREE.sh...
-BASIC_DBSCAN execution time: 1826 milliseconds
-Total execution time for dataset ./KDTREE/../INPUTS/random_points.csv: 1880 ms
+KD-TREE_DBSCAN execution time: 1220 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 1270 ms
 Rand Index: 0.9999646577863115
 ------------------------------------------------------------------------------------------------
 
@@ -23,8 +23,31 @@ Rand Index: 0.9999646577863115
 
 ------------------------------------------------------------------------------------------------
 Running MLPACK_DBSCAN/mlpack_dbscan.sh...
-MLPACK_DBSCAN execution time: 688 milliseconds
-Total execution time for dataset ./MLPACK_DBSCAN/../INPUTS/random_points.csv: 790 ms
+MLPACK_DBSCAN execution time: 422 milliseconds
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 490 ms
+Rand Index: 1.0
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------
+Running HPDBSCAN/hpdbscan.sh...
+mkdir: cannot create directory ‘/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/hpdbscan/build’: File exists
+Computing cell space
+	Computing dimensions...[OK] in 0.002720
+	Computing cells...     [OK] in 0.000867
+	Sorting points...      [OK] in 0.002762
+Clustering...
+	DBSCAN...              [OK] in 0.078382
+	Appyling rules...      [OK] in 0.005272
+	Recovering order...    [OK] in 0.003294
+Summary...
+	Clusters:       24
+	Cluster points: 24989
+	Noise points:   11
+	Core points:    24989
+Total time: 0.093797
+Total execution time for dataset /home/iragukujije/Desktop/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 109 ms
 Rand Index: 1.0
 ------------------------------------------------------------------------------------------------
 

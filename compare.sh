@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define an array with script names
-scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "KDTREE/KDTREE.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh")
+scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "KDTREE/KDTREE.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh")
 
 # generate random points : NUM_CLUSTERS * POINTS_PER_CLUSTER = number of points generated 
 NUM_CLUSTERS=25

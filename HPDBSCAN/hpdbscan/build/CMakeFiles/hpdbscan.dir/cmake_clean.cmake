@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hpdbscan.dir/src/hpdbscan.cpp.o"
+  "CMakeFiles/hpdbscan.dir/src/hpdbscan.cpp.o.d"
   "libhpdbscan.pdb"
   "libhpdbscan.so"
 )

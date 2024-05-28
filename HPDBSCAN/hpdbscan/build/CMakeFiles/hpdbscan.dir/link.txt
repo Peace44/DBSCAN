@@ -1,1 +1,1 @@
-/usr/bin/mpicxx -fPIC -Ofast -Wall -Wextra  -shared -Wl,-soname,libhpdbscan.so -o libhpdbscan.so CMakeFiles/hpdbscan.dir/src/hpdbscan.cpp.o  -fopenmp 
+/usr/bin/c++ -fPIC -Ofast -Wall -Wextra -shared -Wl,-soname,libhpdbscan.so -o libhpdbscan.so CMakeFiles/hpdbscan.dir/src/hpdbscan.cpp.o  -fopenmp 
