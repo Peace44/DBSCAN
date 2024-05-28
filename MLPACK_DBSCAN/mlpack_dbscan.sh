@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get the directory where the script is located
-SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+SCRIPT_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
 
 # Get the paths of the program & the exe
 MLPACK_CPP=$SCRIPT_DIR/mlpack_dbscan.cpp

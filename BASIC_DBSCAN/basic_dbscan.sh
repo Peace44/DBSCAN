@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Get the directory where the script is located
-SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+SCRIPT_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
 
 # Get the paths of the program & the exe
-PROG_CPP="$SCRIPT_DIR/basic_dbscan_opt.cpp"
-PROG="$SCRIPT_DIR/basic_dbscan"
+PROG_CPP=$SCRIPT_DIR/basic_dbscan_opt.cpp
+PROG=$SCRIPT_DIR/basic_dbscan
 
 # Compile the program
-g++ -O3 "$PROG_CPP" -o "$PROG" -std=c++17
+g++ -O3 $PROG_CPP -o $PROG -std=c++17
 if [[ $? -ne 0 ]]; then
     echo "Compilation failed."
     exit 1
@@ -24,7 +24,7 @@ run() {
     start=$(date +%s%3N)
 
     # Run the program and capture the output
-    "$PROG" "$dataset_name" "$eps" "$minPts" | tee -a "$output_file"
+    $PROG $dataset_name $eps $minPts | tee -a $output_file
 
     # End time in milliseconds
     end=$(date +%s%3N)
@@ -42,15 +42,15 @@ if [[ $# -ne 3 ]]; then
     exit 1
 fi
 
-output_file="$SCRIPT_DIR/basic_dbscan.txt"
+output_file=$SCRIPT_DIR/basic_dbscan.txt
 input_file=$(realpath "$SCRIPT_DIR/$1")
 eps=$2
 minPts=$3
 
 # Ensure the output file is empty
-> "$output_file"
+> $output_file
 
 # Run benchmarks
-run "$input_file" "$output_file" "$eps" "$minPts"
+run $input_file $output_file $eps $minPts
 
 # echo "Completed. Check the '$output_file' file!"
