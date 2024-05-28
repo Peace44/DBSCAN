@@ -15,8 +15,8 @@ if not csv_file.endswith('.csv'):
     sys.exit(1)
 
 if not hdf5_file.endswith('.h5'):
-    print("Error: The output file must be an HDF5 file! ==> Defaultly, writing to 'data.h5'")
-    hdf5_file = "data.h5"
+    hdf5_file = os.path.splitext(csv_file)[0] + '.h5'
+    print(f"Error: The output file must be an HDF5 file! ==> Writing output to '{hdf5_file}'")
 
 df = pd.read_csv(csv_file)
 data_matrix = df.to_numpy()
