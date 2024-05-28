@@ -43,7 +43,7 @@ if [[ $# -ne 3 ]]; then
 fi
 
 output_file=$SCRIPT_DIR/basic_dbscan.txt
-input_file=$(realpath "$SCRIPT_DIR/$1")
+input_file=$(realpath $SCRIPT_DIR/$1)
 eps=$2
 minPts=$3
 

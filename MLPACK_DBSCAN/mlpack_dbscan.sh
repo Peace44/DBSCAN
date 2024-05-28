@@ -42,8 +42,8 @@ if [[ $# -ne 3 ]]; then
     exit 1
 fi
 
-output_file="$SCRIPT_DIR/mlpack_dbscan.txt"
-input_file=$(realpath "$SCRIPT_DIR/$1")
+output_file=$SCRIPT_DIR/mlpack_dbscan.txt
+input_file=$(realpath $SCRIPT_DIR/$1)
 eps=$2
 minPts=$3
 
