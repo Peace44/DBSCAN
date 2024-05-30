@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Define an array with script names
-scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "KDTREE/KDTREE.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh")
+scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "KDTREE/KDTREE.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh")
 
 # generate random points : NUM_CLUSTERS * POINTS_PER_CLUSTER = number of points generated 
-NUM_CLUSTERS=25
-POINTS_PER_CLUSTER=1000
+NUM_CLUSTERS=4
+POINTS_PER_CLUSTER=100
 
 # Generate random points
 echo "Generating the random points input file..."
