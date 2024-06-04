@@ -1,0 +1,64 @@
+Generating results using 4 clusters and 100 points per cluster
+eps = 1.0, minPts = 2
+
+
+
+------------------------------------------------------------------------------------------------
+Running BASIC_DBSCAN/basic_dbscan.sh...
+BASIC_DBSCAN execution time: 0 milliseconds
+Total execution time for dataset /home/mick/SCD/DBSCAN/DBSCAN/INPUTS/random_points.csv: 3 ms
+Rand Index: 0.9278070175438596
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------
+Running KDTREE/KDTREE.sh...
+KD-TREE_DBSCAN execution time: 0 milliseconds
+Total execution time for dataset /home/mick/SCD/DBSCAN/DBSCAN/INPUTS/random_points.csv: 2 ms
+Rand Index: 0.9278070175438596
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------
+Running MLPACK_DBSCAN/mlpack_dbscan.sh...
+MLPACK_DBSCAN execution time: 0 milliseconds
+Total execution time for dataset /home/mick/SCD/DBSCAN/DBSCAN/INPUTS/random_points.csv: 29 ms
+Rand Index: 0.9278070175438596
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------
+Running HPDBSCAN/hpdbscan.sh...
+mkdir: cannot create directory ‘/home/mick/SCD/DBSCAN/DBSCAN/HPDBSCAN/build’: File exists
+Computing cell space
+	Computing dimensions...[OK] in 0.014065
+	Computing cells...     [OK] in 0.000927
+	Sorting points...      [OK] in 0.000062
+Clustering...
+	DBSCAN...              [OK] in 0.001667
+	Appyling rules...      [OK] in 0.001429
+	Recovering order...    [OK] in 0.001629
+Summary...
+	Clusters:       12
+	Cluster points: 358
+	Noise points:   42
+	Core points:    358
+Total time: 0.020071
+Total execution time for dataset /home/mick/SCD/DBSCAN/DBSCAN/INPUTS/random_points.csv: 29 ms
+Rand Index: 0.9278070175438596
+------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------
+Running NDUJA_DBSCAN/nduja_dbscan.sh...
+NDUJA'S DBSCAN execution time: 0 milliseconds
+Total execution time for dataset /home/mick/SCD/DBSCAN/DBSCAN/INPUTS/random_points.csv: 3 ms
+Rand Index: 0.9056015037593985
+------------------------------------------------------------------------------------------------
+
+
+
