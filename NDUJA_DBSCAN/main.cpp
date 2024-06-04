@@ -42,7 +42,8 @@ std::vector<Point> read_points_from_csv(const std::string& filename) {
 
 
 
-void write_points_to_csv(const std::string& filename, const std::vector<std::vector<int>>& clusters) {
+//void write_points_to_csv(const std::string& filename, const std::vector<std::vector<int>>& clusters) {
+ void write_points_to_csv(const std::string& filename, const std::vector<Point>& points) {
     std::ofstream file(filename);
 
     if (!file.is_open()) {
@@ -50,13 +51,21 @@ void write_points_to_csv(const std::string& filename, const std::vector<std::vec
         return;
     }
 
-    for (size_t i = 0; i < clusters.size(); ++i) {
-        file << "Cluster " << i << ":\n";
-        for (const auto& point : clusters[i]) {
-            file << point << "\n";
-        }
-        file << "\n";
+    file << "x,y,z,clusterID\n";
+    
+    for (const auto& point : points) {
+        file << point.x << "," << point.y << "," << point.z << "," << point.clusterID << "\n";
     }
+   
+
+
+    // for (size_t i = 0; i < clusters.size(); ++i) {
+    //     file << "Cluster " << i << ":\n";
+    //     for (const auto& point : clusters[i]) {
+    //         file << point << "\n";
+    //     }
+    //     file << "\n";
+    // }
 
     file.close();
 }
@@ -97,9 +106,18 @@ int main(int argc, char *argv[]) {
     auto clusters = dbscan.getCluster(); 
     std::cout << "NDUJA'S DBSCAN execution time: " << duration.count() << " milliseconds" << std::endl;
     
+     //transform clusters in array of points and write them to file
+    for (const auto& cluster : clusters) {
+        for (const auto& point : cluster) {
+            points[point].clusterID = cluster[0];
+        }
+    }
+
 
     // Write the clustered points to CSV
-    write_points_to_csv(output_filename, clusters);
+//    write_points_to_csv(output_filename, clusters);
+    
+    write_points_to_csv(output_filename, points);
     // std::cout << "Clustering results have been written to " << output_filename << std::endl;
     
     return 0;
