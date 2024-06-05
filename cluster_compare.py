@@ -9,7 +9,7 @@ MIN_PTS = 2
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--eps', type=int, default=EPS)
+parser.add_argument('--eps', type=float, default=EPS)
 parser.add_argument('--min_pts', type=int, default=MIN_PTS)
 args = parser.parse_args()
 eps  = args.eps
