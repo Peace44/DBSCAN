@@ -18,8 +18,8 @@ input_file="../INPUTS/random_points.csv"
 
 
 # Set default values of DBSCAN parameters: eps and minPts
-eps=2 // minimize
-minPts=2 // maximize
+eps=2       #minimize
+minPts=2    #maximize
 
 # Empty the compare.txt file or create it if it doesn't exist
 > compare.txt
@@ -41,7 +41,7 @@ for script in "${scripts[@]}"; do
     echo "------------------------------------------------------------------------------------------------" >> compare.txt
     echo "Running $script..." >> compare.txt
     ./"$script" $input_file $eps $minPts 2>&1 >> compare.txt
-    python3 ./cluster_compare.py >> compare.txt
+    python3 ./cluster_compare.py --eps $eps --min_pts $minPts >> compare.txt
     echo "------------------------------------------------------------------------------------------------" >> compare.txt
     echo -e "\n\n" >> compare.txt
     if [ $? -ne 0 ]; then
