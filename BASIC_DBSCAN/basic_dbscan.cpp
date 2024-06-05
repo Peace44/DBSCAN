@@ -165,9 +165,9 @@ int main(int argc, char *argv[]) {
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
     dbscan(points, eps, min_pts); // Apply DBSCAN
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     
-    std::cout << "BASIC_DBSCAN execution time: " << duration.count() << " milliseconds" << std::endl;
+    std::cout << "BASIC_DBSCAN execution time: " << duration.count() << " microseconds" << std::endl;
     
     // Write the clustered points to CSV
     write_points_to_csv(output_filename, points);
