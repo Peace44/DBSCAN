@@ -9,7 +9,7 @@ DBSCAN_CPP=$SCRIPT_DIR/nduja_dbscan.cpp
 PROG=$SCRIPT_DIR/nduja_dbscan
 
 # Compile the program
-g++ -O3 -I /usr/local/include/eigen3 $DBSCAN_CPP $PROG_CPP -o $PROG -std=c++17
+g++ -O3 $DBSCAN_CPP $PROG_CPP -o $PROG -std=c++17
 if [[ $? -ne 0 ]]; then
     echo "Compilation failed."
     exit 1

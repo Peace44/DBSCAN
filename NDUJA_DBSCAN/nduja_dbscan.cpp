@@ -5,8 +5,8 @@
 #include <cmath>
 #include <map>
 #include "dbscan.h"
-#include <Eigen/Dense>
-#include <Eigen/Geometry>
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/Geometry>
 
 
 // Filter by cone shape params

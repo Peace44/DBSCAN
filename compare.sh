@@ -18,8 +18,8 @@ input_file="../INPUTS/random_points.csv"
 
 
 # Set default values of DBSCAN parameters: eps and minPts
-eps=0.35       #minimize --> current value on nduja 0.35
-minPts=2    #maximize --> current value on nduja 2
+eps=0.35    #minimize --> current value on nduja 0.35
+minPts=3    #maximize --> current value on nduja 2
 
 # Empty the compare.txt file or create it if it doesn't exist
 > compare.txt
