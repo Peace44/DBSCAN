@@ -33,7 +33,7 @@ run() {
     exec_time=$((end - start))
 
     # Append exec time to the output file
-    echo "Total execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
+    echo "Total execution time for dataset $dataset_name: $exec_time milliseconds" | tee -a $output_file
 }
 
 # Ensure the correct number of arguments are provided
