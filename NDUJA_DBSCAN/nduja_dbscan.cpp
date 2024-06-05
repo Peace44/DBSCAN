@@ -101,8 +101,14 @@ std::vector<std::vector<int>> DBSCAN::getCluster() {
     return clusterToPoints;
 }
 
+
+
 double DBSCAN::getDis(Point a, Point b) {
-    return sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y) + (a.z - b.z)*(a.z - b.z));
+    double ax_bx = a.x - b.x;
+    double ay_by = a.y - b.y;
+    double az_bz = a.z - b.z;
+
+    return (ax_bx * ax_bx) + (ay_by * ay_by) + (az_bz * az_bz);
 }
 
 void DBSCAN::computeCentroids(){

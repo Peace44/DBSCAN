@@ -5,8 +5,8 @@ eps = 0.35, minPts = 3
 
 --------------------------------------------------------------------------------------------------------------------------
 Running BASIC_DBSCAN/basic_dbscan.sh...
-BASIC_DBSCAN execution time: 908 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
+BASIC_DBSCAN execution time: 273 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 6 milliseconds
 Rand Index: 0.9169799498746867
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -14,8 +14,8 @@ Rand Index: 0.9169799498746867
 
 --------------------------------------------------------------------------------------------------------------------------
 Running BASIC_DBSCAN/basic_dbscan_opt.sh...
-BASIC_DBSCAN_OPT execution time: 241 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 5 milliseconds
+BASIC_DBSCAN_OPT execution time: 628 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
 Rand Index: 0.9169799498746867
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -23,8 +23,8 @@ Rand Index: 0.9169799498746867
 
 --------------------------------------------------------------------------------------------------------------------------
 Running KDTREE_DBSCAN/kdtree_dbscan.sh...
-KDTREE_DBSCAN execution time: 270 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
+KDTREE_DBSCAN execution time: 258 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 9 milliseconds
 Rand Index: 0.9169799498746867
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -32,8 +32,8 @@ Rand Index: 0.9169799498746867
 
 --------------------------------------------------------------------------------------------------------------------------
 Running KDTREE_DBSCAN/kdtree_dbscan_opt.sh...
-KDTREE_DBSCAN_OPT execution time: 182 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 5 milliseconds
+KDTREE_DBSCAN_OPT execution time: 183 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 6 milliseconds
 Rand Index: 1.0
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -41,8 +41,8 @@ Rand Index: 1.0
 
 --------------------------------------------------------------------------------------------------------------------------
 Running MLPACK_DBSCAN/mlpack_dbscan.sh...
-MLPACK_DBSCAN execution time: 492 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
+MLPACK_DBSCAN execution time: 898 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 10 milliseconds
 Rand Index: 1.0
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -51,15 +51,15 @@ Rand Index: 1.0
 --------------------------------------------------------------------------------------------------------------------------
 Running HPDBSCAN/hpdbscan.sh...
 The directory /home/peace/PersonalProjects/DBSCAN/HPDBSCAN/build is already present!
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 4 milliseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 5 milliseconds
 --------------------------------------------------------------------------------------------------------------------------
 
 
 
 --------------------------------------------------------------------------------------------------------------------------
 Running NDUJA_DBSCAN/nduja_dbscan.sh...
-NDUJA'S DBSCAN execution time: 1132 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 10 milliseconds
+NDUJA'S DBSCAN execution time: 550 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 18 milliseconds
 Rand Index: 0.9169799498746867
 --------------------------------------------------------------------------------------------------------------------------
 

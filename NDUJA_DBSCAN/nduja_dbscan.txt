@@ -1,2 +1,2 @@
-NDUJA'S DBSCAN execution time: 1132 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 10 milliseconds
+NDUJA'S DBSCAN execution time: 550 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 18 milliseconds

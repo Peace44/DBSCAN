@@ -25,8 +25,12 @@ struct Point3D {
 
 
 
-double euclidean_distance_sqr(const Point3D& a, const Point3D& b) {
-    return pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2);
+double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) {
+    double ax_bx = a.x - b.x;
+    double ay_by = a.y - b.y;
+    double az_bz = a.z - b.z;
+
+    return (ax_bx * ax_bx) + (ay_by * ay_by) + (az_bz * az_bz);
 }
 
 
@@ -47,7 +51,7 @@ std::vector<int> initialize_core_points(std::vector<Point3D>& points, int m) {
         for (int i = 0; i < points.size(); ++i) {
             double min_dist_to_core = std::numeric_limits<double>::max();
             for (int core_idx : core_point_indices) {
-                double dist = euclidean_distance_sqr(points[i], points[core_idx]);
+                double dist = euclidean_distance_sqrd(points[i], points[core_idx]);
                 if (dist < min_dist_to_core) {
                     min_dist_to_core = dist;
                 }
@@ -71,7 +75,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, 
     double epsSquared = eps * eps;
 
     for (int idx : core_points) {
-        if (euclidean_distance_sqr(points[point_id], points[idx]) < epsSquared) {
+        if (euclidean_distance_sqrd(points[point_id], points[idx]) < epsSquared) {
             seeds.push_back(idx);
         }
     }
@@ -93,7 +97,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, 
 
         std::vector<int> result;
         for (int idx : core_points) {
-            if (euclidean_distance_sqr(points[current_point], points[idx]) < epsSquared && (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE)) {
+            if (euclidean_distance_sqrd(points[current_point], points[idx]) < epsSquared && (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE)) {
                 result.push_back(idx);
             }
         }
