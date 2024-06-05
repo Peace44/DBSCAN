@@ -1,14 +1,23 @@
-
-# Consider dependencies only in project.
-set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
-
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
+  "CXX"
+  )
+# The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/scd/DBSCAN/HPDBSCAN/src/hpdbscan.cpp" "/home/scd/DBSCAN/HPDBSCAN/build/CMakeFiles/hpdbscan.dir/src/hpdbscan.cpp.o"
+  )
+set(CMAKE_CXX_COMPILER_ID "GNU")
+
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_CXX
+  "WITH_MPI"
+  "hpdbscan_EXPORTS"
   )
 
-# The set of dependency files which are needed:
-set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/hpdbscan/src/hpdbscan.cpp" "CMakeFiles/hpdbscan.dir/src/hpdbscan.cpp.o" "gcc" "CMakeFiles/hpdbscan.dir/src/hpdbscan.cpp.o.d"
+# The include file search paths:
+set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "../include"
+  "/usr/include/hdf5/serial"
   )
 
 # Targets to which this target links.

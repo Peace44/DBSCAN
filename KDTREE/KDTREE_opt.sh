@@ -4,8 +4,8 @@
 SCRIPT_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
 
 # Get the paths of the program & the exe
-PROG_CPP=$SCRIPT_DIR/basic_dbscan.cpp
-PROG=$SCRIPT_DIR/basic_dbscan
+PROG_CPP=$SCRIPT_DIR/nanoflann_dbscan.cpp
+PROG=$SCRIPT_DIR/nanoflann_dbscan
 
 # Compile the program
 g++ -O3 $PROG_CPP -o $PROG -std=c++17
@@ -42,7 +42,7 @@ if [[ $# -ne 3 ]]; then
     exit 1
 fi
 
-output_file=$SCRIPT_DIR/basic_dbscan.txt
+output_file=$SCRIPT_DIR/nanoflann_dbscan.txt
 input_file=$(realpath $SCRIPT_DIR/$1)
 eps=$2
 minPts=$3
