@@ -179,20 +179,12 @@ int main(int argc, char *argv[]) {
     }
     
     std::string input_filename = argv[1];
-
-    // Generate output filename based on input filename
-    std::size_t dotPos = input_filename.rfind('.');
-    std::string baseName = (dotPos == std::string::npos) ? input_filename : input_filename.substr(0, dotPos);
-    std::string extension = (dotPos == std::string::npos) ? "" : input_filename.substr(dotPos);
-    
-    // Replace "INPUTS" with "OUTPUTS" in the baseName
-    std::size_t inputsPos = baseName.find("INPUTS");
-    if (inputsPos != std::string::npos) baseName.replace(inputsPos, strlen("INPUTS"), "OUTPUTS");
-    std::string output_filename = baseName + "_clusters" + extension;
+    std::string output_filename = "BASIC_DBSCAN++/basic_dbscan++.csv";
 
     // Parameters for DBSCAN
     double eps = std::atoi(argv[2]); // Adjust based on your dataset
     int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
+    
     int m = 10; // Number of core points to initialize
 
     // Read points from CSV
@@ -202,6 +194,7 @@ int main(int argc, char *argv[]) {
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
     dbscan(points, eps, min_pts, core_points);
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point
+    
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     
     std::cout << "BASIC_DBSCAN++ execution time: " << duration.count() << " microseconds" << std::endl;

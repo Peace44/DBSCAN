@@ -72,6 +72,8 @@
         "numbers": "cpp",
         "ranges": "cpp",
         "stop_token": "cpp",
-        "semaphore": "cpp"
+        "semaphore": "cpp",
+        "regex": "cpp",
+        "shared_mutex": "cpp"
     }
 }

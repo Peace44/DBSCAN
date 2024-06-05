@@ -4,12 +4,11 @@
 SCRIPT_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
 
 # Get the paths of the program & the exe
-PROG_CPP=$SCRIPT_DIR/basic_dbscan_KDTrees.cpp
-PROG=$SCRIPT_DIR/basic_dbscan_KDTrees
-KDTREE_CPP=$SCRIPT_DIR/KDTree.cpp
+PROG_CPP=$SCRIPT_DIR/kdtree_dbscan_opt.cpp
+PROG=$SCRIPT_DIR/kdtree_dbscan_opt
 
 # Compile the program
-g++ -O3 $PROG_CPP $KDTREE_CPP -o $PROG -std=c++17
+g++ -O3 $PROG_CPP -o $PROG -std=c++17
 if [[ $? -ne 0 ]]; then
     echo "Compilation failed."
     exit 1
@@ -20,21 +19,21 @@ run() {
     output_file=$2
     eps=$3
     minPts=$4
-
-    # Start time in millisecs
+    
+    # Start time in milliseconds
     start=$(date +%s%3N)
 
     # Run the program and capture the output
     $PROG $dataset_name $eps $minPts | tee -a $output_file
 
-    # End time in millisecs
+    # End time in milliseconds
     end=$(date +%s%3N)
 
     # Calculate exec time
     exec_time=$((end - start))
 
     # Append exec time to the output file
-    echo "Total execution time for dataset $dataset_name: $exec_time milliseconds" | tee -a $output_file
+    echo "Total execution time for dataset $dataset_name: $exec_time milliseconds" | tee -a "$output_file"
 }
 
 # Ensure the correct number of arguments are provided
@@ -43,7 +42,7 @@ if [[ $# -ne 3 ]]; then
     exit 1
 fi
 
-output_file=$SCRIPT_DIR/KDTREE.txt
+output_file=$SCRIPT_DIR/kdtree_dbscan_out.txt
 input_file=$(realpath $SCRIPT_DIR/$1)
 eps=$2
 minPts=$3

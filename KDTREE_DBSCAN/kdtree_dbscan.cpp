@@ -180,16 +180,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::string input_filename = argv[1];
-
-    // Generate output filename based on input filename
-    std::size_t dotPos = input_filename.rfind('.');
-    std::string baseName = (dotPos == std::string::npos) ? input_filename : input_filename.substr(0, dotPos);
-    std::string extension = (dotPos == std::string::npos) ? "" : input_filename.substr(dotPos);
-    
-    // Replace "INPUTS" with "OUTPUTS" in the baseName
-    std::size_t inputsPos = baseName.find("INPUTS");
-    if (inputsPos != std::string::npos) baseName.replace(inputsPos, strlen("INPUTS"), "OUTPUTS");
-    std::string output_filename = baseName + "_clusters" + extension;
+    std::string output_filename = "KDTREE_DBSCAN/kdtree_dbscan.csv";
 
     // Read points from CSV
     std::vector<Point3D> points = read_points_from_csv(input_filename);
@@ -201,9 +192,10 @@ int main(int argc, char *argv[]) {
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
     dbscan(points, eps, min_pts); // Apply DBSCAN
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point
+    
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     
-    std::cout << "KD-TREE_DBSCAN execution time: " << duration.count() << " microseconds" << std::endl;
+    std::cout << "KDTREE_DBSCAN execution time: " << duration.count() << " microseconds" << std::endl;
     
     // Write the clustered points to CSV
     write_points_to_csv(output_filename, points);

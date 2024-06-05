@@ -2,7 +2,7 @@
 clear 
 
 # Define an array with script names
-scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "BASIC_DBSCAN/basic_dbscan_opt.sh" "KDTREE/KDTREE.sh" "KDTREE/KDTREE_opt.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh")
+scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "BASIC_DBSCAN/basic_dbscan_opt.sh" "KDTREE_DBSCAN/kdtree_dbscan.sh" "KDTREE_DBSCAN/kdtree_dbscan_opt.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh")
 
 # generate random points : NUM_CLUSTERS * POINTS_PER_CLUSTER = number of points generated 
 NUM_CLUSTERS=4
@@ -38,11 +38,12 @@ done
 echo "Executing scripts..."
 # Execute each script in order and redirect output to compare.txt
 for script in "${scripts[@]}"; do
-    echo "------------------------------------------------------------------------------------------------" >> compare.txt
+    echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
     echo "Running $script..." >> compare.txt
     ./"$script" $input_file $eps $minPts 2>&1 >> compare.txt
-    python3 ./cluster_compare.py --eps $eps --min_pts $minPts >> compare.txt
-    echo "------------------------------------------------------------------------------------------------" >> compare.txt
+    csv="${script/.sh/.csv}"
+    python3 ./cluster_compare.py --input "./INPUTS/random_points.csv" --output $csv --eps $eps --min_pts $minPts >> compare.txt
+    echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
     echo -e "\n\n" >> compare.txt
     if [ $? -ne 0 ]; then
         echo "$script failed"
