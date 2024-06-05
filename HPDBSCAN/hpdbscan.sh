@@ -5,7 +5,11 @@ SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 BUILD_DIR=$SCRIPT_DIR/build
 
 # Compile the program
-mkdir $BUILD_DIR && cd $BUILD_DIR && cmake .. && make
+if test -d $BUILD_DIR; then
+    echo "The directory $BUILD_DIR is already present!"
+else
+    mkdir $BUILD_DIR && cd $BUILD_DIR && cmake .. && make
+fi
 
 # Get the paths of the exe
 PROG=$BUILD_DIR/hpdbscan
@@ -24,7 +28,7 @@ run() {
     start=$(date +%s%3N)
     
     # Run the program and capture the output
-    $PROG -i $BUILD_DIR/data.h5 -o $BUILD_DIR/data.h5 -e $eps -m $minPts | tee -a $output_file
+    $PROG -i $BUILD_DIR/data.h5 -o $BUILD_DIR/data.h5 -e $eps -m $minPts -t 10 | tee -a $output_file
     # $PROG -h | tee -a $output_file
 
     # End time in milliseconds
@@ -34,7 +38,7 @@ run() {
     exec_time=$((end - start))
 
     # Append exec time to the output file
-    echo "Total execution time for dataset $dataset_name: $exec_time ms" | tee -a $output_file
+    echo "Total execution time for dataset $dataset_name: $exec_time milliseconds" | tee -a $output_file
 }
 
 # Ensure the correct number of arguments are provided
