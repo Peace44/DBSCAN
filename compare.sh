@@ -39,7 +39,7 @@ echo "Executing scripts..."
 for script in "${scripts[@]}"; do
     echo "------------------------------------------------------------------------------------------------" >> compare.txt
     echo "Running $script..." >> compare.txt
-    ./"$script" $input_file $eps $minPts >> compare.txt 2>&1
+    ./"$script" $input_file $eps $minPts 2>&1 >> compare.txt
     python3 ./cluster_compare.py >> compare.txt
     echo "------------------------------------------------------------------------------------------------" >> compare.txt
     echo -e "\n\n" >> compare.txt
