@@ -27,7 +27,7 @@ run() {
     exec_time=$((end - start))
 
     # Append exec time to the output file
-    echo "Execution time for dataset $dataset_name: $exec_time ms" >> $output_file
+    echo "Execution time for dataset $dataset_name: $exec_time milliseconds" >> $output_file
 }
 
 # Output file
