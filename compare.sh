@@ -2,7 +2,7 @@
 clear 
 
 # Define an array with script names
-scripts=("BASIC_DBSCAN/basic_dbscan.sh"  "BASIC_DBSCAN/basic_dbscan_opt.sh" "KDTREE_DBSCAN/kdtree_dbscan.sh" "KDTREE_DBSCAN/kdtree_dbscan_opt.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh")
+scripts=("BASIC_DBSCAN/basic_dbscan.sh" "BASIC_DBSCAN/basic_dbscan_opt.sh" "BASIC_DBSCAN++/basic_dbscan++.sh"   "KDTREE_DBSCAN/kdtree_dbscan.sh" "KDTREE_DBSCAN/kdtree_dbscan_opt.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh")
 
 # generate random points : NUM_CLUSTERS * POINTS_PER_CLUSTER = number of points generated 
 NUM_CLUSTERS=4
@@ -18,7 +18,7 @@ input_file="../INPUTS/random_points.csv"
 
 
 # Set default values of DBSCAN parameters: eps and minPts
-eps=0.35    #minimize --> current value on nduja 0.35
+eps=2    #minimize --> current value on nduja 0.35
 minPts=3    #maximize --> current value on nduja 2
 
 # Empty the compare.txt file or create it if it doesn't exist

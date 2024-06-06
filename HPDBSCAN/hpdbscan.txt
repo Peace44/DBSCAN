@@ -1,1 +1,17 @@
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 5 milliseconds
+Computing cell space
+	Computing dimensions...[OK] in 0.000713
+	Computing cells...     [OK] in 0.000194
+	Sorting points...      [OK] in 0.000044
+	Distributing points... [OK] in 0.001613
+Clustering...
+	DBSCAN...              [OK] in 0.000375
+	Merging halos...       [OK] in 0.000033
+	Appyling rules...      [OK] in 0.000170
+	Recovering order...    [OK] in 0.000142
+Summary...
+	Clusters:       4
+	Cluster points: 396
+	Noise points:   4
+	Core points:    393
+Total time: 3884.324000 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 139 milliseconds

@@ -10,34 +10,59 @@
 #include <chrono>
 
 
+
 const int NOISE = -1;
 const int UNCLASSIFIED = 0;
 
 
 
-struct Point3D {
+struct Point3D 
+{
     double x, y, z;
     int cluster = UNCLASSIFIED;
 };
 
 
 
-double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) {
-    double ax_bx = a.x - b.x;
-    double ay_by = a.y - b.y;
-    double az_bz = a.z - b.z;
+// 1-norm
+double manhattan_distance(const Point3D& a, const Point3D& b)
+{
+    double _ax_bx_ = std::abs(a.x - b.x);
+    double _ay_by_ = std::abs(a.y - b.y);
+    double _az_bz_ = std::abs(a.z - b.z);
 
-    return (ax_bx * ax_bx) + (ay_by * ay_by) + (az_bz * az_bz);
+    return _ax_bx_ + _ay_by_ + _az_bz_;
 }
 
+// 2-norm
+double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) 
+{
+    double _ax_bx_ = a.x - b.x; // no need to calculate abs here
+    double _ay_by_ = a.y - b.y; // no need to calculate abs here
+    double _az_bz_ = a.z - b.z; // no need to calculate abs here
 
+    return (_ax_bx_ * _ax_bx_) + (_ay_by_ * _ay_by_) + (_az_bz_ * _az_bz_);
+}
 
-bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts) {
+// Infinity-norm
+double chebyshev_distance(const Point3D& a, const Point3D& b)
+{
+    double _ax_bx_ = std::abs(a.x - b.x);
+    double _ay_by_ = std::abs(a.y - b.y);
+    double _az_bz_ = std::abs(a.z - b.z);
+    
+    return (_ax_bx_ >= _ay_by_) ? ((_ax_bx_ >= _az_bz_) ? _ax_bx_ : _az_bz_) : ((_ay_by_ >= _az_bz_) ? _ay_by_ : _az_bz_); // this returns max(_ax_bx_, _ay_by_, _az_bz_) very efficiently
+}
+
+using distance_function = double(*)(const Point3D&, const Point3D&);
+
+bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, distance_function dist_func) {
     std::vector<int> seeds;
-    const double epsSquared = eps * eps; // Precompute eps squared
+
+    if (dist_func == euclidean_distance_sqrd) eps *= eps; 
 
     for (int i = 0; i < points.size(); i++) {
-        if (euclidean_distance_sqrd(points[point_id], points[i]) < epsSquared) {
+        if (dist_func(points[point_id], points[i]) < eps) {
             seeds.push_back(i);
         }
     }
@@ -62,7 +87,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
 
         std::vector<int> result;
         for (int i = 0; i < points.size(); i++) {
-            if (euclidean_distance_sqrd(points[current_point], points[i]) < epsSquared) {
+            if (dist_func(points[current_point], points[i]) < eps) {
                 result.push_back(i);
             }
         }
@@ -79,16 +104,17 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
             }
         }
     }
+    
     return true;
 }
 
 
 
-void dbscan(std::vector<Point3D>& points, double eps, int min_pts) {
+void dbscan(std::vector<Point3D>& points, double eps, int min_pts, distance_function dist_func) {
     int cluster = 1;
     for (int i = 0; i < points.size(); i++) {
         if (points[i].cluster == UNCLASSIFIED) {
-            if (expand_cluster(points, i, cluster, eps, min_pts)) {
+            if (expand_cluster(points, i, cluster, eps, min_pts, dist_func)) {
                 cluster++;
             }
         }
@@ -144,8 +170,8 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 4) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
+    if (argc < 5) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts> <norm_type>" << std::endl;
         return 1;
     }
 
@@ -159,8 +185,17 @@ int main(int argc, char *argv[]) {
     double eps = std::atoi(argv[2]); // Adjust based on your dataset
     int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
 
+    // Parameter for the distance function
+    std::string norm_type = argv[4];
+
+    distance_function dist_func = nullptr;
+    if (norm_type == "1") dist_func = manhattan_distance;
+    else if (norm_type == "2") dist_func = euclidean_distance_sqrd;
+    else if (norm_type == "inf") dist_func = chebyshev_distance;
+    else std::cerr << "Unsupported norm_type. Use '1' for Manhattan (1-norm), '2' for Euclidean (2-norm), 'inf' for Chebyshev (inf-norm)" << std::endl;
+
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
-    dbscan(points, eps, min_pts); // Apply DBSCAN
+    dbscan(points, eps, min_pts, dist_func); // Apply DBSCAN
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point
     
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
