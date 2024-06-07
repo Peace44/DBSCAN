@@ -60,15 +60,11 @@ using distance_function = double(*)(const Point3D&, const Point3D&);
 
 
 bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, kdtree* tree) {
-  
-   // const double epsSquared = eps * eps; // Precompute eps squared
-    const double epsSquared = pow(eps, 2); // Precompute eps squared
-    //seeds contains pointer to  kdtrees items
-    std::vector<int> seeds;
+    std::vector<int> seeds; //seeds contains pointer to  kdtrees items
 
     double query[3] = {points[point_id].x, points[point_id].y, points[point_id].z};
     kdres *tree_search;
-    tree_search = kd_nearest_range(tree, query, epsSquared);;
+    tree_search = kd_nearest_range(tree, query, eps);;
     
     if (tree_search == nullptr) {
         std::cout << "result is null" << std::endl;
@@ -105,7 +101,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
         //redo kdtree search
         double query[3] = {points[current_point].x, points[current_point].y, points[current_point].z};
         kdres *tree_search;
-        tree_search = kd_nearest_range(tree, query, epsSquared);;
+        tree_search = kd_nearest_range(tree, query, eps);;
 
         while (!kd_res_end(tree_search)) {
             int index = kd_res_item_index(tree_search, NULL);

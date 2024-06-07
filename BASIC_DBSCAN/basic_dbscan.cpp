@@ -61,8 +61,6 @@ using distance_function = double(*)(const Point3D&, const Point3D&);
 bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, distance_function dist_func) {
     std::vector<int> seeds;
 
-    if (dist_func == euclidean_distance_sqrd) eps *= eps; 
-
     for (int i = 0; i < points.size(); i++) {
         if (dist_func(points[point_id], points[i]) < eps) {
             seeds.push_back(i);
@@ -192,7 +190,7 @@ int main(int argc, char *argv[]) {
 
     distance_function dist_func = nullptr;
     if (norm_type == "1") dist_func = manhattan_distance;
-    else if (norm_type == "2") dist_func = euclidean_distance_sqrd;
+    else if (norm_type == "2") {dist_func = euclidean_distance_sqrd; eps *= eps;}
     else if (norm_type == "inf") dist_func = chebyshev_distance;
     else std::cerr << "Unsupported norm_type. Use '1' for Manhattan (1-norm), '2' for Euclidean (2-norm), 'inf' for Chebyshev (inf-norm)" << std::endl;
 
