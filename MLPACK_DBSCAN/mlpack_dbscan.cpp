@@ -8,8 +8,8 @@
 
 
 
-const int NOISE = -1;
-const int UNCLASSIFIED = 0;
+const int NOISE = -2;
+const int UNCLASSIFIED = -1;
 
 
 

@@ -11,7 +11,7 @@ DBSCAN::DBSCAN(std::vector<Point3D> points, double eps, int minPts, distance_fun
 
     this->size = (int)points.size();
     adjPoints.resize(size);
-    this->clusterIdx=-1;
+    this->clusterIdx=UNCLASSIFIED;
     this->ptsCnt = std::vector<int>(this->size, 0);
     this->pointsToCluster = std::vector<int>(this->size, UNCLASSIFIED);
 }

@@ -12,8 +12,8 @@
 
 
 
-const int NOISE = -1;
-const int UNCLASSIFIED = 0;
+const int NOISE = -2;
+const int UNCLASSIFIED = -1;
 
 
 
@@ -112,7 +112,7 @@ void dbscan(PointCloud& cloud, double eps, int min_pts) {
     my_kd_tree_t index(3, cloud, nanoflann::KDTreeSingleIndexAdaptorParams(10));
     index.buildIndex();
 
-    int cluster = 1;
+    int cluster = UNCLASSIFIED + 1;
     for (int i = 0; i < cloud.points.size(); i++) {
         if (cloud.points[i].cluster == UNCLASSIFIED) {
             if (expand_cluster(cloud, index, i, cluster, eps, min_pts)) {

@@ -1,11 +1,11 @@
-Generating results using 4 clusters and 100 points per cluster
+Generating results using 7 clusters and 97 points per cluster
 eps = 2, minPts = 3
 
 
 
 --------------------------------------------------------------------------------------------------------------------------
 Running BASIC_DBSCAN/basic_dbscan.sh...
-BASIC_DBSCAN execution time: 654 microseconds
+BASIC_DBSCAN execution time: 1536 microseconds
 Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
 Rand Index: 1.0
 --------------------------------------------------------------------------------------------------------------------------
@@ -14,25 +14,7 @@ Rand Index: 1.0
 
 --------------------------------------------------------------------------------------------------------------------------
 Running BASIC_DBSCAN/basic_dbscan_opt.sh...
-BASIC_DBSCAN_OPT execution time: 646 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 6 milliseconds
-Rand Index: 1.0
---------------------------------------------------------------------------------------------------------------------------
-
-
-
---------------------------------------------------------------------------------------------------------------------------
-Running BASIC_DBSCAN++/basic_dbscan++.sh...
-BASIC_DBSCAN++ execution time: 2 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 6 milliseconds
-Rand Index: 0.272593984962406
---------------------------------------------------------------------------------------------------------------------------
-
-
-
---------------------------------------------------------------------------------------------------------------------------
-Running KDTREE_DBSCAN/kdtree_dbscan.sh...
-KDTREE_DBSCAN execution time: 1282 microseconds
+BASIC_DBSCAN_OPT execution time: 1473 microseconds
 Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
 Rand Index: 1.0
 --------------------------------------------------------------------------------------------------------------------------
@@ -40,9 +22,27 @@ Rand Index: 1.0
 
 
 --------------------------------------------------------------------------------------------------------------------------
+Running BASIC_DBSCAN++/basic_dbscan++.sh...
+BASIC_DBSCAN++ execution time: 1 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
+Rand Index: 0.1611905413565846
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+Running KDTREE_DBSCAN/kdtree_dbscan.sh...
+KDTREE_DBSCAN execution time: 2349 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 10 milliseconds
+Rand Index: 1.0
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
 Running KDTREE_DBSCAN/kdtree_dbscan_opt.sh...
-KDTREE_DBSCAN_OPT execution time: 1002 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 8 milliseconds
+KDTREE_DBSCAN_OPT execution time: 1600 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 9 milliseconds
 Rand Index: 1.0
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -50,8 +50,8 @@ Rand Index: 1.0
 
 --------------------------------------------------------------------------------------------------------------------------
 Running MLPACK_DBSCAN/mlpack_dbscan.sh...
-MLPACK_DBSCAN execution time: 1740 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 16 milliseconds
+MLPACK_DBSCAN execution time: 2928 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 21 milliseconds
 Rand Index: 1.0
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -61,31 +61,31 @@ Rand Index: 1.0
 Running HPDBSCAN/hpdbscan.sh...
 The directory /home/scd/DBSCAN/HPDBSCAN/build is already present!
 Computing cell space
-	Computing dimensions...[OK] in 0.001458
-	Computing cells...     [OK] in 0.000384
-	Sorting points...      [OK] in 0.000043
-	Distributing points... [OK] in 0.000700
+	Computing dimensions...[OK] in 0.000959
+	Computing cells...     [OK] in 0.000363
+	Sorting points...      [OK] in 0.000079
+	Distributing points... [OK] in 0.000578
 Clustering...
-	DBSCAN...              [OK] in 0.000812
-	Merging halos...       [OK] in 0.000006
-	Appyling rules...      [OK] in 0.000162
-	Recovering order...    [OK] in 0.001506
+	DBSCAN...              [OK] in 0.001426
+	Merging halos...       [OK] in 0.000026
+	Appyling rules...      [OK] in 0.000170
+	Recovering order...    [OK] in 0.000174
 Summary...
-	Clusters:       4
-	Cluster points: 396
-	Noise points:   4
-	Core points:    393
-Total time: 5424.138999 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 143 milliseconds
+	Clusters:       7
+	Cluster points: 670
+	Noise points:   9
+	Core points:    666
+Total time: 4494.827001 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 179 milliseconds
 --------------------------------------------------------------------------------------------------------------------------
 
 
 
 --------------------------------------------------------------------------------------------------------------------------
 Running NDUJA_DBSCAN/nduja_dbscan.sh...
-NDUJA'S DBSCAN execution time: 753 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 8 milliseconds
-Rand Index: 1.0
+NDUJA'S DBSCAN execution time: 1763 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 9 milliseconds
+Rand Index: 0.9995568704628097
 --------------------------------------------------------------------------------------------------------------------------
 
 

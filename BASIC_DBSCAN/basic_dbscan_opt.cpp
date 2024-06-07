@@ -11,8 +11,8 @@
 
 
 
-const int NOISE = -1;
-const int UNCLASSIFIED = 0;
+const int NOISE = -2;
+const int UNCLASSIFIED = -1;
 
 
 
@@ -109,7 +109,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
 
 
 void dbscan(std::vector<Point3D>& points, double eps, int min_pts, distance_function dist_func) {
-    int cluster = 1;
+    int cluster = UNCLASSIFIED + 1;
     for (int i = 0; i < points.size(); i++) {
         if (points[i].cluster == UNCLASSIFIED) {
             if (expand_cluster(points, i, cluster, eps, min_pts, dist_func)) {

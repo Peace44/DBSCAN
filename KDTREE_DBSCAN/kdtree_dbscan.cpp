@@ -12,8 +12,8 @@
 
 
 
-const int NOISE = -1;
-const int UNCLASSIFIED = 0;
+const int NOISE = -2;
+const int UNCLASSIFIED = -1;
 
 
 
@@ -130,7 +130,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
 
 
 void dbscan(std::vector<Point3D>& points, double eps, int min_pts) {
-    int cluster = 1;
+    int cluster = UNCLASSIFIED + 1;
 
     kdtree* tree = kd_create(3); // Build the KD-tree
     //populate kdtree

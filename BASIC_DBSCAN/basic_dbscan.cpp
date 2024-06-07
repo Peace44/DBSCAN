@@ -11,8 +11,8 @@
 
 
 
-const int NOISE = -1;
-const int UNCLASSIFIED = 0;
+const int NOISE = -2;
+const int UNCLASSIFIED = -1;
 
 
 
@@ -24,9 +24,20 @@ struct Point3D
 
 
 
+// int dist_func_counter = 0; ==> This is by far the most called function! ==> optimize dist_func to the max! ==> manhattan_distance is the fastest! (I think)
+// int expand_cluster_counter = 0;
+// int dbscan_counter = 0;
+// int read_points_from_csv_counter = 0;
+// int write_points_to_csv_counter = 0;
+// int main_counter = 0;
+
+
+
 // 1-norm
 double manhattan_distance(const Point3D& a, const Point3D& b)
 {
+    // dist_func_counter++;
+
     double _ax_bx_ = std::abs(a.x - b.x);
     double _ay_by_ = std::abs(a.y - b.y);
     double _az_bz_ = std::abs(a.z - b.z);
@@ -37,6 +48,8 @@ double manhattan_distance(const Point3D& a, const Point3D& b)
 // 2-norm
 double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) 
 {
+    // dist_func_counter++;
+
     double _ax_bx_ = a.x - b.x; // no need to calculate abs here
     double _ay_by_ = a.y - b.y; // no need to calculate abs here
     double _az_bz_ = a.z - b.z; // no need to calculate abs here
@@ -47,6 +60,8 @@ double euclidean_distance_sqrd(const Point3D& a, const Point3D& b)
 // Infinity-norm
 double chebyshev_distance(const Point3D& a, const Point3D& b)
 {
+    // dist_func_counter++;
+
     double _ax_bx_ = std::abs(a.x - b.x);
     double _ay_by_ = std::abs(a.y - b.y);
     double _az_bz_ = std::abs(a.z - b.z);
@@ -59,6 +74,8 @@ using distance_function = double(*)(const Point3D&, const Point3D&);
 
 
 bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, distance_function dist_func) {
+    // expand_cluster_counter++;
+
     std::vector<int> seeds;
 
     for (int i = 0; i < points.size(); i++) {
@@ -108,10 +125,10 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
     return true;
 }
 
-
-
 void dbscan(std::vector<Point3D>& points, double eps, int min_pts, distance_function dist_func) {
-    int cluster = 1;
+    // dbscan_counter++;
+
+    int cluster = UNCLASSIFIED + 1;
     for (int i = 0; i < points.size(); i++) {
         if (points[i].cluster == UNCLASSIFIED) {
             if (expand_cluster(points, i, cluster, eps, min_pts, dist_func)) {
@@ -122,7 +139,10 @@ void dbscan(std::vector<Point3D>& points, double eps, int min_pts, distance_func
 }
 
 
+
 std::vector<Point3D> read_points_from_csv(const std::string& filename) {
+    // read_points_from_csv_counter++;
+
     std::vector<Point3D> points;
     std::ifstream file(filename, std::ios::binary); // Open in binary mode to speed up reading
     if (!file.is_open()) {
@@ -148,9 +168,9 @@ std::vector<Point3D> read_points_from_csv(const std::string& filename) {
     return points;
 }
 
-
-
 void write_points_to_csv(const std::string& filename, const std::vector<Point3D>& points) {
+    // write_points_to_csv_counter++;
+
     std::ofstream file(filename);
     // Check if the file stream is open and ready.
     if (!file.is_open()) {
@@ -170,6 +190,8 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 int main(int argc, char *argv[]) {
+    // main_counter++;
+
     if (argc < 5) {
         std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts> <norm_type>" << std::endl;
         return 1;
@@ -205,6 +227,15 @@ int main(int argc, char *argv[]) {
     // Write the clustered points to CSV
     write_points_to_csv(output_filename, points);
     // std::cout << "Clustering results have been written to " << output_filename << std::endl;
+    
+    // std::cout << std::endl;
+    // std::cout << "dist_func_counter = " << dist_func_counter << std::endl;
+    // std::cout << "expand_cluster_counter = " << expand_cluster_counter << std::endl;
+    // std::cout << "dbscan_counter = " << dbscan_counter << std::endl;
+    // std::cout << "read_pts_from_csv_counter = " << read_points_from_csv_counter << std::endl;
+    // std::cout << "write_pts_to_csv_counter = " << write_points_to_csv_counter << std::endl;
+    // std::cout << "main_counter = " << main_counter << std::endl;
+    // std::cout << std::endl;
     
     return 0;
 }

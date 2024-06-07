@@ -13,8 +13,8 @@
 
 
 
-const int NOISE = -1;
-const int UNCLASSIFIED = 0;
+const int NOISE = -2;
+const int UNCLASSIFIED = -1;
 
 
 
@@ -94,10 +94,9 @@ std::vector<int> initialize_core_points(std::vector<Point3D>& points, int m, dis
 
 bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, double eps, int min_pts, const std::vector<int>& core_points, distance_function dist_func) {
     std::vector<int> seeds;
-    double epsSquared = eps * eps;
 
     for (int idx : core_points) {
-        if (dist_func(points[point_id], points[idx]) < epsSquared) {
+        if (dist_func(points[point_id], points[idx]) < eps) {
             seeds.push_back(idx);
         }
     }
@@ -119,7 +118,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster_id, 
 
         std::vector<int> result;
         for (int idx : core_points) {
-            if (dist_func(points[current_point], points[idx]) < epsSquared && (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE)) {
+            if (dist_func(points[current_point], points[idx]) < eps && (points[idx].cluster == UNCLASSIFIED || points[idx].cluster == NOISE)) {
                 result.push_back(idx);
             }
         }
@@ -219,7 +218,7 @@ int main(int argc, char *argv[]) {
 
     distance_function dist_func = nullptr;
     if (norm_type == "1") dist_func = manhattan_distance;
-    else if (norm_type == "2") dist_func = euclidean_distance_sqrd;
+    else if (norm_type == "2") {dist_func = euclidean_distance_sqrd; eps *= eps;}
     else if (norm_type == "inf") dist_func = chebyshev_distance;
     else std::cerr << "Unsupported norm_type. Use '1' for Manhattan (1-norm), '2' for Euclidean (2-norm), 'inf' for Chebyshev (inf-norm)" << std::endl;
 

@@ -1,2 +1,2 @@
-BASIC_DBSCAN_OPT execution time: 646 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 6 milliseconds
+BASIC_DBSCAN_OPT execution time: 1473 microseconds
+Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 7 milliseconds
