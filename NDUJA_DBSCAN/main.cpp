@@ -1,12 +1,5 @@
 #include <iostream>
-#include <vector>
-#include <cmath>
 #include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <string>
-#include <cstring>
-#include <charconv>
 #include <chrono>
 #include "dbscan.h"
 
@@ -120,7 +113,7 @@ int main(int argc, char *argv[])
     else std::cerr << "Unsupported norm_type. Use '1' for Manhattan (1-norm), '2' for Euclidean (2-norm), 'inf' for Chebyshev (inf-norm)" << std::endl;
 
     // Apply DBSCAN
-    DBSCAN dbscan(points, eps, min_pts, dist_func, 0.0, 0.0, 0.0, 0.0);
+    DBSCAN dbscan(points, eps, min_pts, dist_func);
 
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
     dbscan.run();    
