@@ -9,6 +9,7 @@
 #include <eigen3/Eigen/Geometry>
 
 
+
 // Filter by cone shape params
 #define THRESHOLD 0.06
 
@@ -19,33 +20,39 @@
 #define TAN_ALPHA (BASE_DIAM / (2*CONE_HEIGHT))
 
 
-//euclidean distance function
 
+DBSCAN::DBSCAN(std::vector<Point3D> points, double eps, int minPts, distance_function dist_func, double centroideMaxDistance, double sensorHeight, double maxDistToLine, double xFilter) 
+{
+    this->points = points;
 
-DBSCAN::DBSCAN(double eps, int minPts, double centroideMaxDistance, double sensorHeight, double maxDistToLine, double xFilter, std::vector<Point> points) {
     this->eps = eps;
     this->minPts = minPts;
+    
+    this->dist_func = dist_func;
+
     this->centroideMaxDistance = centroideMaxDistance;
     this->sensorHeight = sensorHeight;
     this->maxDistToLine = maxDistToLine;
     this->xFilter = xFilter;
 
-    this->points = points;
     this->size = (int)points.size();
     adjPoints.resize(size);
     this->clusterIdx=-1;
 
     this->ptsCnt = std::vector<int>(this->size, 0);
-    this->pointsToCluster = std::vector<int>(this->size, NOT_CLASSIFIED);
+    this->pointsToCluster = std::vector<int>(this->size, UNCLASSIFIED);
 }
 
-void DBSCAN::run () {
+
+
+void DBSCAN::run () 
+{
     // analyze near points
     checkNearPoints();
     // assign clusters
     for(int i=0;i<size;i++) {
-        // if(clusterToPoints[i] != NOT_CLASSIFIED) continue;
-        if(pointsToCluster[i] != NOT_CLASSIFIED) continue;
+        // if(clusterToPoints[i] != UNCLASSIFIED) continue;
+        if(pointsToCluster[i] != UNCLASSIFIED) continue;
         
         if(isCoreObject(i)) {
             dfs(i, ++clusterIdx);
@@ -66,26 +73,31 @@ void DBSCAN::run () {
     computeCentroids();
 
     filterCentroids();
-
 }
 
-void DBSCAN::dfs (int now, int c) {
+
+
+void DBSCAN::dfs (int now, int c) 
+{
     pointsToCluster[now] = c;
     if(!isCoreObject(now)) return;
     
     for(auto&next:adjPoints[now]) {
-        // if(points[next].cluster != NOT_CLASSIFIED) continue;
-        if(pointsToCluster[next] != NOT_CLASSIFIED) continue;
+        // if(points[next].cluster != UNCLASSIFIED) continue;
+        if(pointsToCluster[next] != UNCLASSIFIED) continue;
         dfs(next, c);
     }
 }
 
-void DBSCAN::checkNearPoints() {
+
+
+void DBSCAN::checkNearPoints() 
+{
     // TODO: j=i+1
     for(int i=0;i<size;i++) {
         for(int j=0;j<size;j++) {
-            if(i==j) continue;
-            if(getDis(points[i],points[j]) <= eps) {
+            if (i == j) continue;
+            if (getDis(points[i], points[j]) <= eps) {
                 ptsCnt[i]++;
                 adjPoints[i].push_back(j);
             }
@@ -93,25 +105,31 @@ void DBSCAN::checkNearPoints() {
     }
 }
 
-bool DBSCAN::isCoreObject(int idx) {
+
+
+bool DBSCAN::isCoreObject(int idx) 
+{
     return ptsCnt[idx] >= minPts;
 }
 
-std::vector<std::vector<int>> DBSCAN::getCluster() {
+
+
+std::vector<std::vector<int>> DBSCAN::getCluster() 
+{
     return clusterToPoints;
 }
 
 
 
-double DBSCAN::getDis(Point a, Point b) {
-    double ax_bx = a.x - b.x;
-    double ay_by = a.y - b.y;
-    double az_bz = a.z - b.z;
-
-    return (ax_bx * ax_bx) + (ay_by * ay_by) + (az_bz * az_bz);
+double DBSCAN::getDis(const Point3D& a, const Point3D& b)
+{  
+    return dist_func(a, b);
 }
 
-void DBSCAN::computeCentroids(){
+
+
+void DBSCAN::computeCentroids()
+{
     int count;
     centroids.resize(clusterIdx+1);
     
@@ -133,13 +151,16 @@ void DBSCAN::computeCentroids(){
     }
 }
 
-void DBSCAN::filterCentroids(){
+
+
+void DBSCAN::filterCentroids()
+{
     std::vector<int> to_delete;
 
     for(int cluster_index = 0; cluster_index < centroids.size(); cluster_index++)
     {
         std::vector<int> cluster_points = clusterToPoints[cluster_index];
-        Point cluster_centroid = centroids[cluster_index];
+        Point3D cluster_centroid = centroids[cluster_index];
 
         bool stop = false;
         
@@ -169,7 +190,7 @@ void DBSCAN::filterCentroids(){
         
         for(int point_index : cluster_points)
         {   
-            if(getDis(cluster_centroid, points[point_index]) > centroideMaxDistance)
+            if (getDis(cluster_centroid, points[point_index]) > centroideMaxDistance)
             {
                 to_delete.insert(to_delete.begin(), cluster_index);
                 stop = true;
@@ -250,7 +271,9 @@ void DBSCAN::filterCentroids(){
 }
 
 
-std::vector<Point> DBSCAN::getCentroids(){
+
+std::vector<Point3D> DBSCAN::getCentroids()
+{
     return centroids;
 }
 

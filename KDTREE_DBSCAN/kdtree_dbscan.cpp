@@ -10,8 +10,11 @@
 #include <chrono>
 #include "KDTree.h"
 
+
+
 const int NOISE = -1;
 const int UNCLASSIFIED = 0;
+
 
 
 struct Point3D {
@@ -22,13 +25,38 @@ struct Point3D {
 
 
 
-double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) {
-    double ax_bx = a.x - b.x;
-    double ay_by = a.y - b.y;
-    double az_bz = a.z - b.z;
+// 1-norm
+double manhattan_distance(const Point3D& a, const Point3D& b)
+{
+    double _ax_bx_ = std::abs(a.x - b.x);
+    double _ay_by_ = std::abs(a.y - b.y);
+    double _az_bz_ = std::abs(a.z - b.z);
 
-    return (ax_bx * ax_bx) + (ay_by * ay_by) + (az_bz * az_bz);
+    return _ax_bx_ + _ay_by_ + _az_bz_;
 }
+
+// 2-norm
+double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) 
+{
+    double _ax_bx_ = a.x - b.x; // no need to calculate abs here
+    double _ay_by_ = a.y - b.y; // no need to calculate abs here
+    double _az_bz_ = a.z - b.z; // no need to calculate abs here
+
+    return (_ax_bx_ * _ax_bx_) + (_ay_by_ * _ay_by_) + (_az_bz_ * _az_bz_);
+}
+
+// Infinity-norm
+double chebyshev_distance(const Point3D& a, const Point3D& b)
+{
+    double _ax_bx_ = std::abs(a.x - b.x);
+    double _ay_by_ = std::abs(a.y - b.y);
+    double _az_bz_ = std::abs(a.z - b.z);
+    
+    return (_ax_bx_ >= _ay_by_) ? ((_ax_bx_ >= _az_bz_) ? _ax_bx_ : _az_bz_) : ((_ay_by_ >= _az_bz_) ? _ay_by_ : _az_bz_); // this returns max(_ax_bx_, _ay_by_, _az_bz_) very efficiently
+}
+
+using distance_function = double(*)(const Point3D&, const Point3D&);
+
 
 
 bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, kdtree* tree) {

@@ -47,7 +47,7 @@ DBSCAN::DBSCAN(double eps, int minPts, double centroideMaxDistance, double senso
     this->clusterIdx=-1;
 
     this->ptsCnt = std::vector<int>(this->size, 0);
-    this->pointsToCluster = std::vector<int>(this->size, NOT_CLASSIFIED);
+    this->pointsToCluster = std::vector<int>(this->size, UNCLASSIFIED);
 }
 
 void DBSCAN::run () {
@@ -55,8 +55,8 @@ void DBSCAN::run () {
     checkNearPoints();
     // assign clusters
     for(int i=0;i<size;i++) {
-        // if(clusterToPoints[i] != NOT_CLASSIFIED) continue;
-        if(pointsToCluster[i] != NOT_CLASSIFIED) continue;
+        // if(clusterToPoints[i] != UNCLASSIFIED) continue;
+        if(pointsToCluster[i] != UNCLASSIFIED) continue;
         
         if(isCoreObject(i)) {
             dfs(i, ++clusterIdx);
@@ -85,8 +85,8 @@ void DBSCAN::dfs (int now, int c) {
     if(!isCoreObject(now)) return;
     
     for(auto&next:adjPoints[now]) {
-        // if(points[next].cluster != NOT_CLASSIFIED) continue;
-        if(pointsToCluster[next] != NOT_CLASSIFIED) continue;
+        // if(points[next].cluster != UNCLASSIFIED) continue;
+        if(pointsToCluster[next] != UNCLASSIFIED) continue;
         dfs(next, c);
     }
 }

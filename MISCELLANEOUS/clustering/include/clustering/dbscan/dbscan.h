@@ -7,7 +7,7 @@
 #include <pcl/impl/point_types.hpp>
 
 const int NOISE = -2;
-const int NOT_CLASSIFIED = -1;
+const int UNCLASSIFIED = -1;
 
 class DBSCAN {
 public:

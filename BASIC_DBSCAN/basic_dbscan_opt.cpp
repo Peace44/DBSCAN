@@ -61,7 +61,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
     if (dist_func == euclidean_distance_sqrd) eps *= eps;
 
     for (auto  it = points.begin(); it != points.end(); ++it) {
-        if (dist_func(points[point_id], *it) < eps) {
+        if (dist_func(points[point_id], *it) <= eps) {
             seeds.push_back(std::distance(points.begin(), it));
         }
     }
@@ -87,7 +87,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
         std::vector<int> result;
         
         for (auto  it = points.begin(); it != points.end(); ++it) {
-            if (dist_func(points[current_point], *it) < eps) {
+            if (dist_func(points[current_point], *it) <= eps) {
                 result.push_back(std::distance(points.begin(), it));
             }
         }

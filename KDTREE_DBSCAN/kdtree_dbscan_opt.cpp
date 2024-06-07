@@ -10,13 +10,19 @@
 #include <chrono>
 #include <nanoflann.hpp> // sudo apt install libnanoflann-dev
 
+
+
 const int NOISE = -1;
 const int UNCLASSIFIED = 0;
+
+
 
 struct Point3D {
     double x, y, z;
     int cluster = UNCLASSIFIED;
 };
+
+
 
 // Adapt nanoflann to work with Point3D
 struct PointCloud {

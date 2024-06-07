@@ -287,7 +287,7 @@ class Clustering : public rclcpp::Node
 
       if(_plot)
       {
-        // Point cloud
+        // Point3D cloud
         pcl::toROSMsg(cloud_transformed, pc2_msg);
         pc2_msg.header.frame_id = "/clustering_frame";
         _point_cloud_plot_publisher->publish(pc2_msg);

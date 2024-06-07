@@ -56,6 +56,8 @@ double chebyshev_distance(const Point3D& a, const Point3D& b)
 
 using distance_function = double(*)(const Point3D&, const Point3D&);
 
+
+
 bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, double eps, int min_pts, distance_function dist_func) {
     std::vector<int> seeds;
 
