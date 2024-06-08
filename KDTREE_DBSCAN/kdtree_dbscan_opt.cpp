@@ -24,6 +24,30 @@ struct Point3D {
 
 
 
+// 1-norm
+double manhattan_distance(const double _dx_, const double _dy_, const double _dz_)
+{
+    return _dx_ + _dy_ + _dz_;
+}
+
+// 2-norm
+double euclidean_distance_sqrd(const double _dx_, const double _dy_, const double _dz_) 
+{
+    return (_dx_ * _dx_) + (_dy_ * _dy_) + (_dz_ * _dz_);
+}
+
+// Infinity-norm
+double chebyshev_distance(const double _dx_, const double _dy_, const double _dz_)
+{
+    return std::max(std::max(_dx_, _dy_), _dz_);
+}
+
+using distance_function = double(*)(const double, const double, const double);
+
+distance_function dist_func = nullptr;
+
+
+
 // Adapt nanoflann to work with Point3D
 struct PointCloud {
     std::vector<Point3D> points;
@@ -33,10 +57,11 @@ struct PointCloud {
 
     // Returns the distance between the vector "p1[0:size-1]" and the data point with index "idx_p2" stored in the class
     inline double kdtree_distance(const double* p1, const size_t idx_p2, size_t size) const {
-        const double d0 = p1[0] - points[idx_p2].x;
-        const double d1 = p1[1] - points[idx_p2].y;
-        const double d2 = p1[2] - points[idx_p2].z;
-        return d0 * d0 + d1 * d1 + d2 * d2;
+        const double d0 = std::abs(p1[0] - points[idx_p2].x);
+        const double d1 = std::abs(p1[1] - points[idx_p2].y);
+        const double d2 = std::abs(p1[2] - points[idx_p2].z);
+        // return d0 * d0 + d1 * d1 + d2 * d2;
+        return dist_func(d0, d1, d2);
     }
 
     // Returns the dim'th component of the idx'th point in the class
@@ -57,12 +82,12 @@ typedef nanoflann::KDTreeSingleIndexAdaptor<
     3 /* dim */
 > my_kd_tree_t;
 
-void find_neighbors(const PointCloud& cloud, my_kd_tree_t& index, int point_id, double epsSquared, std::vector<int>& neighbors) {
+void find_neighbors(const PointCloud& cloud, my_kd_tree_t& index, int point_id, double eps, std::vector<int>& neighbors) {
     const Point3D& query_point = cloud.points[point_id];
     std::vector<std::pair<unsigned int, double>> ret_matches;
     nanoflann::SearchParams params;
     const double query_pt[3] = { query_point.x, query_point.y, query_point.z };
-    const size_t nMatches = index.radiusSearch(&query_pt[0], epsSquared, ret_matches, params);
+    const size_t nMatches = index.radiusSearch(&query_pt[0], eps, ret_matches, params);
 
     neighbors.reserve(nMatches);
     for (size_t i = 0; i < nMatches; ++i) {
@@ -72,9 +97,8 @@ void find_neighbors(const PointCloud& cloud, my_kd_tree_t& index, int point_id, 
 
 bool expand_cluster(PointCloud& cloud, my_kd_tree_t& index, int point_id, int cluster, double eps, int min_pts) {
     std::vector<int> seeds;
-    const double epsSquared = eps * eps;
-
-    find_neighbors(cloud, index, point_id, epsSquared, seeds);
+    
+    find_neighbors(cloud, index, point_id, eps, seeds);
 
     if (seeds.size() < min_pts) {
         cloud.points[point_id].cluster = NOISE;
@@ -92,7 +116,7 @@ bool expand_cluster(PointCloud& cloud, my_kd_tree_t& index, int point_id, int cl
         seeds.erase(seeds.begin());
 
         std::vector<int> result;
-        find_neighbors(cloud, index, current_point, epsSquared, result);
+        find_neighbors(cloud, index, current_point, eps, result);
 
         if (result.size() >= min_pts) {
             for (int i : result) {
@@ -161,8 +185,8 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 4) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
+    if (argc < 5) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts> <norm_type>" << std::endl;
         return 1;
     }
 
@@ -173,6 +197,13 @@ int main(int argc, char *argv[]) {
 
     double eps = std::stod(argv[2]);
     int min_pts = std::stoi(argv[3]);
+
+    std::string norm_type = argv[4];
+
+    if (norm_type == "1") dist_func = manhattan_distance;
+    else if (norm_type == "2") {dist_func = euclidean_distance_sqrd; eps *= eps;}
+    else if (norm_type == "inf") dist_func = chebyshev_distance;
+    else std::cerr << "Unsupported norm_type. Use '1' for Manhattan (1-norm), '2' for Euclidean (2-norm), 'inf' for Chebyshev (inf-norm)" << std::endl;
 
     PointCloud cloud;
     cloud.points = points;

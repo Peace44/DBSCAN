@@ -26,36 +26,34 @@ struct Point3D {
 
 
 // 1-norm
-double manhattan_distance(const Point3D& a, const Point3D& b)
+double manhattan_distance(const double *a, const double *b)
 {
-    double _ax_bx_ = std::abs(a.x - b.x);
-    double _ay_by_ = std::abs(a.y - b.y);
-    double _az_bz_ = std::abs(a.z - b.z);
+    double _dx_ = std::abs(a[0] - b[0]);
+    double _dy_ = std::abs(a[1] - b[1]);
+    double _dz_ = std::abs(a[2] - b[2]);
 
-    return _ax_bx_ + _ay_by_ + _az_bz_;
+    return _dx_ + _dy_ + _dz_;
 }
 
 // 2-norm
-double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) 
+double euclidean_distance_sqrd(const double *a, const double *b) 
 {
-    double _ax_bx_ = a.x - b.x; // no need to calculate abs here
-    double _ay_by_ = a.y - b.y; // no need to calculate abs here
-    double _az_bz_ = a.z - b.z; // no need to calculate abs here
+    double _dx_ = std::abs(a[0] - b[0]);
+    double _dy_ = std::abs(a[1] - b[1]);
+    double _dz_ = std::abs(a[2] - b[2]);
 
-    return (_ax_bx_ * _ax_bx_) + (_ay_by_ * _ay_by_) + (_az_bz_ * _az_bz_);
+    return (_dx_ * _dx_) + (_dy_ * _dy_) + (_dz_ * _dz_);
 }
 
 // Infinity-norm
-double chebyshev_distance(const Point3D& a, const Point3D& b)
+double chebyshev_distance(const double *a, const double *b)
 {
-    double _ax_bx_ = std::abs(a.x - b.x);
-    double _ay_by_ = std::abs(a.y - b.y);
-    double _az_bz_ = std::abs(a.z - b.z);
+    double _dx_ = std::abs(a[0] - b[0]);
+    double _dy_ = std::abs(a[1] - b[1]);
+    double _dz_ = std::abs(a[2] - b[2]);
     
-    return (_ax_bx_ >= _ay_by_) ? ((_ax_bx_ >= _az_bz_) ? _ax_bx_ : _az_bz_) : ((_ay_by_ >= _az_bz_) ? _ay_by_ : _az_bz_); // this returns max(_ax_bx_, _ay_by_, _az_bz_) very efficiently
+    return std::max(std::max(_dx_, _dy_), _dz_);
 }
-
-using distance_function = double(*)(const Point3D&, const Point3D&);
 
 
 
@@ -64,7 +62,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
 
     double query[3] = {points[point_id].x, points[point_id].y, points[point_id].z};
     kdres *tree_search;
-    tree_search = kd_nearest_range(tree, query, eps);;
+    tree_search = kd_nearest_range(tree, query, eps);
     
     if (tree_search == nullptr) {
         std::cout << "result is null" << std::endl;
@@ -101,7 +99,7 @@ bool expand_cluster(std::vector<Point3D>& points, int point_id, int cluster, dou
         //redo kdtree search
         double query[3] = {points[current_point].x, points[current_point].y, points[current_point].z};
         kdres *tree_search;
-        tree_search = kd_nearest_range(tree, query, eps);;
+        tree_search = kd_nearest_range(tree, query, eps);
 
         while (!kd_res_end(tree_search)) {
             int index = kd_res_item_index(tree_search, NULL);
@@ -198,8 +196,8 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 4) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
+    if (argc < 5) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts> <norm_type>" << std::endl;
         return 1;
     }
 
@@ -213,6 +211,14 @@ int main(int argc, char *argv[]) {
     double eps = std::atof(argv[2]); // Adjust based on your dataset
     int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
 
+     // Parameter for the distance function
+    std::string norm_type = argv[4];
+
+    if (norm_type == "1") dist_func = manhattan_distance;
+    else if (norm_type == "2") {dist_func = euclidean_distance_sqrd; eps *= eps;}
+    else if (norm_type == "inf") dist_func = chebyshev_distance;
+    else std::cerr << "Unsupported norm_type. Use '1' for Manhattan (1-norm), '2' for Euclidean (2-norm), 'inf' for Chebyshev (inf-norm)" << std::endl;
+    
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
     dbscan(points, eps, min_pts); // Apply DBSCAN
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point

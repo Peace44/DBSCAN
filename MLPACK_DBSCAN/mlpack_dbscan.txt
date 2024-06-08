@@ -1,2 +1,2 @@
-MLPACK_DBSCAN execution time: 2928 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 21 milliseconds
+MLPACK_DBSCAN execution time: 4483 microseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 14 milliseconds

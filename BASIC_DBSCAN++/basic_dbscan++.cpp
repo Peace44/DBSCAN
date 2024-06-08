@@ -28,31 +28,31 @@ struct Point3D {
 // 1-norm
 double manhattan_distance(const Point3D& a, const Point3D& b)
 {
-    double _ax_bx_ = std::abs(a.x - b.x);
-    double _ay_by_ = std::abs(a.y - b.y);
-    double _az_bz_ = std::abs(a.z - b.z);
+    double _dx_ = std::abs(a.x - b.x);
+    double _dy_ = std::abs(a.y - b.y);
+    double _dz_ = std::abs(a.z - b.z);
 
-    return _ax_bx_ + _ay_by_ + _az_bz_;
+    return _dx_ + _dy_ + _dz_;
 }
 
 // 2-norm
 double euclidean_distance_sqrd(const Point3D& a, const Point3D& b) 
 {
-    double _ax_bx_ = a.x - b.x; // no need to calculate abs here
-    double _ay_by_ = a.y - b.y; // no need to calculate abs here
-    double _az_bz_ = a.z - b.z; // no need to calculate abs here
+    double _dx_ = a.x - b.x; // no need to calculate abs here
+    double _dy_ = a.y - b.y; // no need to calculate abs here
+    double _dz_ = a.z - b.z; // no need to calculate abs here
 
-    return (_ax_bx_ * _ax_bx_) + (_ay_by_ * _ay_by_) + (_az_bz_ * _az_bz_);
+    return (_dx_ * _dx_) + (_dy_ * _dy_) + (_dz_ * _dz_);
 }
 
 // Infinity-norm
 double chebyshev_distance(const Point3D& a, const Point3D& b)
 {
-    double _ax_bx_ = std::abs(a.x - b.x);
-    double _ay_by_ = std::abs(a.y - b.y);
-    double _az_bz_ = std::abs(a.z - b.z);
+    double _dx_ = std::abs(a.x - b.x);
+    double _dy_ = std::abs(a.y - b.y);
+    double _dz_ = std::abs(a.z - b.z);
     
-    return (_ax_bx_ >= _ay_by_) ? ((_ax_bx_ >= _az_bz_) ? _ax_bx_ : _az_bz_) : ((_ay_by_ >= _az_bz_) ? _ay_by_ : _az_bz_); // this returns max(_ax_bx_, _ay_by_, _az_bz_) very efficiently
+    return std::max(std::max(_dx_, _dy_), _dz_);
 }
 
 using distance_function = double(*)(const Point3D&, const Point3D&);

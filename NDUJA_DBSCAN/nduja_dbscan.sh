@@ -25,7 +25,7 @@ run() {
     start=$(date +%s%3N)
 
     # Run the program and capture the output
-    $PROG $dataset_name $eps $minPts "2" | tee -a $output_file
+    $PROG $dataset_name $eps $minPts "1" | tee -a $output_file
 
     # End time in milliseconds
     end=$(date +%s%3N)

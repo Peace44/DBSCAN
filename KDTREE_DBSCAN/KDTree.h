@@ -31,6 +31,9 @@ OF SUCH DAMAGE.
 extern "C" {
 #endif
 
+using distance_function = double(*)(const double *, const double *);
+extern distance_function dist_func;
+
 struct kdhyperrect {
     int dim;
     double *min, *max;              /* minimum/maximum coords */
@@ -46,7 +49,7 @@ struct kdnode {
 
 struct res_node {
     struct kdnode *item;
-    double dist_sq;
+    double dist;
     struct res_node *next;
 };
 

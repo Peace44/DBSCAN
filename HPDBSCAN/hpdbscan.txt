@@ -1,17 +1,1 @@
-Computing cell space
-	Computing dimensions...[OK] in 0.000959
-	Computing cells...     [OK] in 0.000363
-	Sorting points...      [OK] in 0.000079
-	Distributing points... [OK] in 0.000578
-Clustering...
-	DBSCAN...              [OK] in 0.001426
-	Merging halos...       [OK] in 0.000026
-	Appyling rules...      [OK] in 0.000170
-	Recovering order...    [OK] in 0.000174
-Summary...
-	Clusters:       7
-	Cluster points: 670
-	Noise points:   9
-	Core points:    666
-Total time: 4494.827001 microseconds
-Total execution time for dataset /home/scd/DBSCAN/INPUTS/random_points.csv: 179 milliseconds
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 3 milliseconds
