@@ -1,35 +1,55 @@
 #!/bin/bash
 clear 
 
-exes=("MLPACK_DBSCAN/mlpack_dbscan" "NDUJA_DBSCAN/nduja_dbscan" "BASIC_DBSCAN/basic_dbscan" "BASIC_DBSCAN/basic_dbscan_opt" "KDTREE_DBSCAN/kdtree_dbscan" "KDTREE_DBSCAN/kdtree_dbscan_opt") # "BASIC_DBSCAN++/basic_dbscan++" "HPDBSCAN/hpdbscan" 
+# Define an array with script names
+scripts=("BASIC_DBSCAN/basic_dbscan.sh" "BASIC_DBSCAN/basic_dbscan_opt.sh" "BASIC_DBSCAN++/basic_dbscan++.sh"   "KDTREE_DBSCAN/kdtree_dbscan.sh" "KDTREE_DBSCAN/kdtree_dbscan_opt.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh")
 
-# Set default values of DBSCAN parameters: eps and min_pts
-eps=2.0 #minimize --> current value on nduja 0.35
-min_pts=3 #maximize --> current value on nduja 2
-norm_types=("1" "2" "inf") 
+# generate random points : NUM_CLUSTERS * POINTS_PER_CLUSTER = number of points generated 
+NUM_CLUSTERS=7
+POINTS_PER_CLUSTER=97
 
-# Empty the compare txt file or create it if it doesn't exist
-compare="compare_${eps}_${min_pts}.txt"
+# Generate random points
+echo "Generating the random points input file..."
+python3 points_generator.py --num_clusters $NUM_CLUSTERS --points_per_cluster $POINTS_PER_CLUSTER
+echo "Random points generated."
 
-> $compare
+# Define input file
+input_file="../INPUTS/random_points.csv"
 
-echo "Benchmarking with eps = $eps, min_pts = $min_pts" >> $compare
-echo -e "\n\n" >> $compare
 
-for exe in "${exes[@]}"; do
-    script="${exe}.sh"
+# Set default values of DBSCAN parameters: eps and minPts
+eps=2    #minimize --> current value on nduja 0.35
+minPts=3    #maximize --> current value on nduja 2
+
+# Empty the compare.txt file or create it if it doesn't exist
+> compare.txt
+
+echo "Ensuring all scripts are executable..."
+echo "Generating results using $NUM_CLUSTERS clusters and $POINTS_PER_CLUSTER points per cluster" >> compare.txt
+echo "eps = $eps, minPts = $minPts" >> compare.txt
+
+echo -e "\n\n" >> compare.txt
+
+# Ensure scripts are executable
+for script in "${scripts[@]}"; do
     chmod +x "$script" || echo "Failed to set executable flag on $script"
-    ./$script
+done
 
-    echo "Running $exe benchmark..." >> $compare
-    echo "--------------------------------------------------------------------------------------------------------------------------" >> $compare
-    for norm_type in ${norm_types[@]}; do
-        echo "" >> $compare
-        python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/CSVs --eps $eps --min_pts $min_pts --norm_type $norm_type >> $compare
-        echo "" >> $compare
-    done
-    echo "--------------------------------------------------------------------------------------------------------------------------" >> $compare
-    echo -e "\n\n" >> $compare
+echo "Executing scripts..."
+# Execute each script in order and redirect output to compare.txt
+for script in "${scripts[@]}"; do
+    echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
+    echo "Running $script..." >> compare.txt
+    ./"$script" $input_file $eps $minPts 2>&1 >> compare.txt
+    csv="${script/.sh/.csv}"
+    python3 ./cluster_compare.py --input "./INPUTS/random_points.csv" --output $csv --eps $eps --min_pts $minPts >> compare.txt
+    echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
+    echo -e "\n\n" >> compare.txt
+    if [ $? -ne 0 ]; then
+        echo "$script failed"
+        exit 1
+    fi
+    echo "$script completed successfully."
 done
 
 echo "All scripts executed successfully."
