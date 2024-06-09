@@ -90,18 +90,18 @@ Running MLPACK_DBSCAN/mlpack_dbscan benchmark...
 --------------------------------------------------------------------------------------------------------------------------
 
 Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_2.0_3_1_benchmark.csv
-Average execution time: 2009.4475308641975 microseconds
-Average Rand Index: 1.0
+Average execution time: 2266.4845679012346 microseconds
+Average Rand Index: 0.9183527572741832
 
 
 Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_2.0_3_2_benchmark.csv
-Average execution time: 1983.7993827160494 microseconds
+Average execution time: 2118.151234567901 microseconds
 Average Rand Index: 1.0
 
 
 Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_2.0_3_inf_benchmark.csv
-Average execution time: 1974.9012345679012 microseconds
-Average Rand Index: 1.0
+Average execution time: 1883.1574074074074 microseconds
+Average Rand Index: 0.8815368958370686
 
 --------------------------------------------------------------------------------------------------------------------------
 
