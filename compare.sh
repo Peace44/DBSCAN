@@ -23,7 +23,7 @@ for exe in "${exes[@]}"; do
     echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
     for norm_type in ${norm_types[@]}; do
         echo "" >> compare.txt
-        python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/csvs --eps $eps --min_pts $min_pts --norm_type $norm_type >> compare.txt
+        python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/CSVs --eps $eps --min_pts $min_pts --norm_type $norm_type >> compare.txt
         echo "" >> compare.txt
     done
     echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
