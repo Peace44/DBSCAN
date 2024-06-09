@@ -1,2 +1,2 @@
-KDTREE_DBSCAN execution time: 1386 microseconds
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 6 milliseconds
+2942
+Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 11 milliseconds

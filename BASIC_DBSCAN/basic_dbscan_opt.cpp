@@ -8,6 +8,8 @@
 #include <cstring>
 #include <charconv>
 #include <chrono>
+#include <limits.h>
+#include <unistd.h>
 
 
 
@@ -167,6 +169,17 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 
+std::string getExecutablePath() {
+    char path[PATH_MAX];
+    ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
+    if (count == -1) {
+        throw std::runtime_error("Error getting executable path");
+    }
+    return std::string(path, count);
+}
+
+
+
 int main(int argc, char *argv[]) {
     if (argc < 5) {
         std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts> <norm_type>" << std::endl;
@@ -174,7 +187,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::string input_filename = argv[1];
-    std::string output_filename = "BASIC_DBSCAN/basic_dbscan_opt.csv";
+    std::string output_filename = getExecutablePath() + ".csv";
 
     // Read points from CSV
     std::vector<Point3D> points = read_points_from_csv(input_filename);
@@ -198,7 +211,7 @@ int main(int argc, char *argv[]) {
     
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     
-    std::cout << "BASIC_DBSCAN_OPT execution time: " << duration.count() << " microseconds" << std::endl;
+    std::cout << duration.count() << std::endl;
     
     // Write the clustered points to CSV
     write_points_to_csv(output_filename, points);

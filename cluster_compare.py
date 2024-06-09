@@ -39,4 +39,4 @@ true_clusters = df_clusters.values[:, 3]  # Assuming the cluster labels are in t
 
 # Step 4: Compute the Rand Index
 rand_index = rand_score(true_clusters, clusters)
-print(f'Rand Index: {rand_index}')
+print(f'{rand_index}')

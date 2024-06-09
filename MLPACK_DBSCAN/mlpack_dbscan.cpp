@@ -39,6 +39,17 @@ void write_points_to_csv(const std::string& filename, const std::vector<Point3D>
 
 
 
+std::string getExecutablePath() {
+    char path[PATH_MAX];
+    ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
+    if (count == -1) {
+        throw std::runtime_error("Error getting executable path");
+    }
+    return std::string(path, count);
+}
+
+
+
 int main(int argc, char *argv[]) {
     if (argc < 4) {
         std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
@@ -46,7 +57,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::string input_filename = argv[1];
-    std::string output_filename = "MLPACK_DBSCAN/mlpack_dbscan.csv";
+    std::string output_filename = getExecutablePath() + ".csv";
 
     // Load the dataset
     arma::mat dataset;
@@ -71,7 +82,7 @@ int main(int argc, char *argv[]) {
     
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     
-    std::cout << "MLPACK_DBSCAN execution time: " << duration.count() << " microseconds" << std::endl;
+    std::cout << duration.count() << std::endl;
     
     // Prepare a vector of Point3D objects
     std::vector<Point3D> points(dataset.n_cols);
