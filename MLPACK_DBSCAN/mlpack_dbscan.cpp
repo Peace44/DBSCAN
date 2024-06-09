@@ -1,5 +1,6 @@
 #include <mlpack/core.hpp>
 #include <mlpack/methods/dbscan/dbscan.hpp>
+#include <mlpack/core/metrics/lmetric.hpp>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -17,6 +18,27 @@ struct Point3D {
     double x, y, z;
     int cluster = UNCLASSIFIED;
 };
+
+
+
+// Define the distance metrics using LMetric
+using manhattan_distance = mlpack::metric::ManhattanDistance;
+using euclidean_distance_sqrd = mlpack::metric::SquaredEuclideanDistance;
+using chebyshev_distance = mlpack::metric::ChebyshevDistance;
+
+template<typename MetricType>
+void run_dbscan(const arma::mat& dataset, double eps, size_t min_pts, arma::Row<size_t>& assignments) {
+    mlpack::dbscan::DBSCAN<mlpack::range::RangeSearch<MetricType>> dbscan(eps, min_pts);
+    dbscan.Cluster(dataset, assignments);
+}
+
+void cluster_dataset(const arma::mat& dataset, double eps, size_t min_pts, const std::string& norm_type, arma::Row<size_t>& assignments)
+{
+    if (norm_type == "1") run_dbscan<manhattan_distance>(dataset, eps, min_pts, assignments);
+    else if (norm_type == "2") run_dbscan<euclidean_distance_sqrd>(dataset, eps * eps, min_pts, assignments);
+    else if (norm_type == "inf") run_dbscan<chebyshev_distance>(dataset, eps, min_pts, assignments);
+    else throw std::invalid_argument("Unsupported norm_type. Use '1' for Manhattan (1-norm), '2' for Euclidean (2-norm), 'inf' for Chebyshev (inf-norm)");
+}
 
 
 
@@ -51,10 +73,11 @@ std::string getExecutablePath() {
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 4) {
-        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts>" << std::endl;
+    if (argc < 5) {
+        std::cerr << "Usage: " << argv[0] << " <input_filename> <eps> <min_pts> <norm_type>" << std::endl;
         return 1;
     }
+
 
     std::string input_filename = argv[1];
     std::string output_filename = getExecutablePath() + ".csv";
@@ -72,12 +95,13 @@ int main(int argc, char *argv[]) {
     // Parameters for DBSCAN
     double eps = std::atof(argv[2]); // Adjust based on your dataset
     int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
+    std::string norm_type = argv[4];
 
-    mlpack::dbscan::DBSCAN<> dbscan(eps, min_pts);
+    // std::unique_ptr<DBSCANBase> dbscan = create_dbscan(eps, min_pts, norm_type);
     arma::Row<size_t> assignments; // This will hold the cluster assignment
 
     auto start = std::chrono::high_resolution_clock::now(); // Before calling dbscan, get the starting time_point
-    dbscan.Cluster(dataset, assignments); // Apply DBSCAN
+    cluster_dataset(dataset, eps, min_pts, norm_type, assignments);
     auto stop = std::chrono::high_resolution_clock::now(); // After dbscan completes, get the ending time_point
     
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
