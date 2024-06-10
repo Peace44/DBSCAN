@@ -1,0 +1,168 @@
+Benchmarking C++ algorithms reliably using Google Benchmark involves a series of steps to install and set up the library, write benchmark tests, and then run these tests. Here's a comprehensive guide:
+
+1. Installing Google Benchmark:
+    To install Google Benchmark on Ubuntu, you need to follow these steps:
+        Step 1: Install dependencies:
+            '''
+            sudo apt-get update
+            sudo apt-get install -y git cmake build-essential
+            '''
+        
+        Step 2: Clone the Google Benchmark repository:
+            '''
+            git clone https://github.com/google/benchmark.git
+            cd benchmark
+            git clone https://github.com/google/googletest.git
+            '''
+        
+        Step 3: Build and install Google Benchmark:
+            '''
+            mkdir build
+            cd build
+            cmake .. -DCMAKE_BUILD_TYPE=Release
+            make
+            sudo make install
+            '''
+
+2. Writing a Benchmark Test:
+    Create a new file, e.g., benchmark_dbscan.cpp, in the same directory as your algorithm file (basic_dbscan_opt.cpp):
+        '''
+        #include <benchmark/benchmark.h>
+        #include "basic_dbscan_opt.cpp" // Include your DBSCAN implementation
+        #include <fstream>
+        #include <sstream>
+        #include <vector>
+        #include <string>
+        #include <filesystem>
+
+        // Assuming Point3D and distance_function are defined in basic_dbscan_opt.cpp
+        struct Point3D {
+            double x, y, z;
+            int cluster;
+            // You can add constructors or other necessary members here
+        };
+
+        typedef double (*distance_function)(const Point3D&, const Point3D&);
+
+        // Function to read CSV files into a vector of Point3D
+        std::vector<Point3D> readCSV(const std::string& filePath) {
+            std::vector<Point3D> points;
+            std::ifstream file(filePath);
+            std::string line;
+            while (std::getline(file, line)) {
+                Point3D point;
+                std::stringstream ss(line);
+                std::string value;
+                std::getline(ss, value, ',');
+                point.x = std::stod(value);
+                std::getline(ss, value, ',');
+                point.y = std::stod(value);
+                std::getline(ss, value, ',');
+                point.z = std::stod(value);
+                point.cluster = UNCLASSIFIED; // Assuming UNCLASSIFIED is defined as a constant
+                points.push_back(point);
+            }
+            return points;
+        }
+
+        // Example distance function
+        double euclidean_distance(const Point3D& a, const Point3D& b) {
+            return std::sqrt((a.x - b.x) * (a.x - b.x) +
+                            (a.y - b.y) * (a.y - b.y) +
+                            (a.z - b.z) * (a.z - b.z));
+        }
+
+        // Benchmark function for DBSCAN
+        static void BM_DBSCAN(benchmark::State& state) {
+            // Read all CSV files from the directory
+            std::vector<std::vector<Point3D>> allPoints;
+            for (const auto& entry : std::filesystem::directory_iterator("./INPUTS/CSVs")) {
+                allPoints.push_back(readCSV(entry.path().string()));
+            }
+
+            double eps = 0.5; // Example epsilon value
+            int min_pts = 5; // Example minimum points value
+
+            for (auto _ : state) {
+                for (auto& points : allPoints) {
+                    dbscan(points, eps, min_pts, euclidean_distance);
+                }
+            }
+        }
+
+        // Register the function as a benchmark
+        BENCHMARK(BM_DBSCAN);
+
+        // Run the benchmark
+        BENCHMARK_MAIN();
+        '''
+
+3. Modify Your Algorithm File:
+    Ensure your algorithm functions are properly defined and can be called from the benchmark file. For instance, if your basic_dbscan_opt.cpp has a function void dbscan_function(), you should be able to call this function from the benchmark file.
+
+4. Compile the Benchmark:
+    Create a CMakeLists.txt file in the same directory:
+        '''
+        cmake_minimum_required(VERSION 3.10)
+        project(DBSCAN_Benchmark)
+
+        set(CMAKE_CXX_STANDARD 11)
+
+        add_executable(benchmark_dbscan benchmark_dbscan.cpp basic_dbscan_opt.cpp)
+
+        find_package(benchmark REQUIRED)
+        target_link_libraries(benchmark_dbscan benchmark::benchmark pthread)
+        '''
+    
+    Then, compile the benchmark:
+        '''
+        mkdir build
+        cd build
+        cmake ..
+        make
+        '''
+
+5. Run the Benchmark:
+    '''
+    ./benchmark_dbscan
+    '''
+
+6. Example Files:
+    Here is an example structure and contents for the files:
+        'benchmark_dbscan.cpp':
+            '''
+            #include <benchmark/benchmark.h>
+            #include "basic_dbscan_opt.cpp"
+
+            // Example function to benchmark
+            static void BM_DBSCAN(benchmark::State& state) {
+                for (auto _ : state) {
+                    // Example: Adjust this to your actual function call
+                    dbscan_function();
+                }
+            }
+
+            // Register the function as a benchmark
+            BENCHMARK(BM_DBSCAN);
+
+            // Run the benchmark
+            BENCHMARK_MAIN();
+            '''
+        
+        'CMakeLists.txt':
+            '''
+            cmake_minimum_required(VERSION 3.10)
+            project(DBSCAN_Benchmark)
+
+            set(CMAKE_CXX_STANDARD 11)
+
+            add_executable(benchmark_dbscan benchmark_dbscan.cpp basic_dbscan_opt.cpp)
+
+            find_package(benchmark REQUIRED)
+            target_link_libraries(benchmark_dbscan benchmark::benchmark)
+            '''
+
+7. Notes:
+    1. Ensure Proper Function Calls: Replace dbscan_function() with the actual function calls and parameters used in your algorithm.
+    2. Optimize Your Algorithm: Make sure your algorithm is optimized and any unnecessary computations are removed to get accurate benchmarking results.
+    3. Large Inputs: Benchmark with different input sizes to measure performance under various conditions.
