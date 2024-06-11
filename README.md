@@ -23,7 +23,7 @@ Just run "./compare.sh", it will run: "basic_dbscan.sh", "kdtree.sh" and "mlpack
 Inside the "compare.sh" script the following variables can be changed in order to make different comparisons and clusterings:
 
 - "eps" sets the epsilon parameter of the dbscan algorithm.
-- "minPts" sets the minimum points that should belong to a cluster.
+- "min_pts" sets the minimum points that should belong to a cluster.
 
 ### Input file
 The input file generation can be changed in the "compare.sh" script.

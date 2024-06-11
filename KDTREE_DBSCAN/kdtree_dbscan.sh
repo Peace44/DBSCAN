@@ -15,43 +15,20 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# run() {
-#     dataset_name=$1
-#     output_file=$2
-#     eps=$3
-#     minPts=$4
-
-#     # Start time in millisecs
-#     start=$(date +%s%3N)
-
-#     # Run the program and capture the output
-#     $PROG $dataset_name $eps $minPts "1" | tee -a $output_file
-
-#     # End time in millisecs
-#     end=$(date +%s%3N)
-
-#     # Calculate exec time
-#     exec_time=$((end - start))
-
-#     # Append exec time to the output file
-#     echo "Total execution time for dataset $dataset_name: $exec_time milliseconds" | tee -a $output_file
-# }
-
-# # Ensure the correct number of arguments are provided
-# if [[ $# -ne 3 ]]; then
-#     echo "Usage: $0 <input_file> <eps> <minPts>"
-#     exit 1
-# fi
+# Ensure the correct number of arguments are provided
+if [[ $# -ne 4 ]]; then
+    echo "Usage: $0 <input_file> <eps> <min_pts> <norm_type>"
+    exit 1
+fi
 
 # output_file=$SCRIPT_DIR/kdtree_dbscan.txt
-# input_file=$(realpath $SCRIPT_DIR/$1)
-# eps=$2
-# minPts=$3
+input_file=$(realpath $SCRIPT_DIR/$1)
+eps=$2
+min_pts=$3
+norm_type=$4
 
-# # Ensure the output file is empty
-# > $output_file
 
-# # Run benchmarks
-# run $input_file $output_file $eps $minPts
+# Run benchmarks
+echo -ne "\tmicroseconds:\t"
+$PROG $input_file $eps $min_pts $norm_type
 
-# # echo "Completed. Check the '$output_file' file!"

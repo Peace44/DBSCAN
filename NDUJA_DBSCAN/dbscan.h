@@ -16,7 +16,7 @@ using distance_function = double(*)(const Point3D&, const Point3D&);
 
 class DBSCAN {
 public:
-    DBSCAN(std::vector<Point3D> points, double eps, int minPts, distance_function dist_func);
+    DBSCAN(std::vector<Point3D> points, double eps, int min_pts, distance_function dist_func);
     void run ();
     void dfs (int now, int c);
     void checkNearPoints();
@@ -26,7 +26,7 @@ public:
 
 private:
     std::vector<Point3D> points;
-    int minPts;
+    int min_pts;
     double eps;
     distance_function dist_func;
 

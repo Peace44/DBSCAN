@@ -33,9 +33,9 @@
 
 
 
-DBSCAN::DBSCAN(double eps, int minPts, double centroideMaxDistance, double sensorHeight, double maxDistToLine, double xFilter, std::vector<pcl::PointXYZ> points) {
+DBSCAN::DBSCAN(double eps, int min_pts, double centroideMaxDistance, double sensorHeight, double maxDistToLine, double xFilter, std::vector<pcl::PointXYZ> points) {
     this->eps = eps;
-    this->minPts = minPts;
+    this->min_pts = min_pts;
     this->centroideMaxDistance = centroideMaxDistance;
     this->sensorHeight = sensorHeight;
     this->maxDistToLine = maxDistToLine;
@@ -105,7 +105,7 @@ void DBSCAN::checkNearPoints() {
 }
 
 bool DBSCAN::isCoreObject(int idx) {
-    return ptsCnt[idx] >= minPts;
+    return ptsCnt[idx] >= min_pts;
 }
 
 std::vector<std::vector<int>> DBSCAN::getCluster() {

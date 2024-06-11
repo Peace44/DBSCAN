@@ -1,4 +1,4 @@
-/home/scd/DBSCAN/HPDBSCAN/build/CMakeFiles/rebuild_cache.dir
-/home/scd/DBSCAN/HPDBSCAN/build/CMakeFiles/hpdbscan-bin.dir
-/home/scd/DBSCAN/HPDBSCAN/build/CMakeFiles/edit_cache.dir
-/home/scd/DBSCAN/HPDBSCAN/build/CMakeFiles/hpdbscan.dir
+/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/hpdbscan.dir
+/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/hpdbscan-bin.dir
+/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/edit_cache.dir
+/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/rebuild_cache.dir

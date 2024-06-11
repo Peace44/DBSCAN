@@ -1,2 +1,0 @@
-1426
-Total execution time for dataset /home/peace/PersonalProjects/DBSCAN/INPUTS/random_points.csv: 8 milliseconds

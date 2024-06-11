@@ -11,7 +11,7 @@ const int UNCLASSIFIED = -1;
 
 class DBSCAN {
 public:
-    DBSCAN(double eps, int minPts, double centroideMaxDistance, double sensorHeight, double maxDistToLine, double xFilter, std::vector<pcl::PointXYZ> points);
+    DBSCAN(double eps, int min_pts, double centroideMaxDistance, double sensorHeight, double maxDistToLine, double xFilter, std::vector<pcl::PointXYZ> points);
     void run ();
     
     void dfs (int now, int c);
@@ -27,7 +27,7 @@ public:
     std::vector<pcl::PointXYZ> getCentroids();
 
 private:
-    int minPts;
+    int min_pts;
     double eps;
     double centroideMaxDistance;
     double sensorHeight;

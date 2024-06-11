@@ -2,11 +2,11 @@
 
 
 
-DBSCAN::DBSCAN(std::vector<Point3D> points, double eps, int minPts, distance_function dist_func)
+DBSCAN::DBSCAN(std::vector<Point3D> points, double eps, int min_pts, distance_function dist_func)
 {
     this->points = points;
     this->eps = eps;
-    this->minPts = minPts;
+    this->min_pts = min_pts;
     this->dist_func = dist_func;
 
     this->size = (int)points.size();
@@ -74,7 +74,7 @@ void DBSCAN::checkNearPoints()
 
 bool DBSCAN::isCoreObject(int idx) 
 {
-    return ptsCnt[idx] >= minPts;
+    return ptsCnt[idx] >= min_pts;
 }
 
 

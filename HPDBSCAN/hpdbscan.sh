@@ -5,9 +5,7 @@ SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 BUILD_DIR=$SCRIPT_DIR/build
 
 # Compile the program
-if test -d $BUILD_DIR; then
-    echo "The directory $BUILD_DIR is already present!"
-else
+if ! test -d $BUILD_DIR; then
     mkdir $BUILD_DIR && cd $BUILD_DIR && cmake .. && make
 fi
 
@@ -15,47 +13,23 @@ fi
 PROG=$BUILD_DIR/hpdbscan
 CSV_TO_HDF5_PROG=$SCRIPT_DIR/csv_to_hdf5.py
 
-run() {
-    dataset_name=$1
-    output_file=$2
-    eps=$3
-    minPts=$4
-
-    # Create data.h5
-    python3 $CSV_TO_HDF5_PROG $dataset_name $BUILD_DIR/data.h5
-
-    # Start time in milliseconds
-    start=$(date +%s%3N)
-    
-    # Run the program and capture the output
-    $PROG -i $BUILD_DIR/data.h5 -o $BUILD_DIR/data.h5 -e $eps -m $minPts -t 10 | tee -a $output_file
-    # $PROG -h | tee -a $output_file
-
-    # End time in milliseconds
-    end=$(date +%s%3N)
-
-    # Calculate exec time
-    exec_time=$((end - start))
-
-    # Append exec time to the output file
-    echo "Total execution time for dataset $dataset_name: $exec_time milliseconds" | tee -a $output_file
-}
-
 # Ensure the correct number of arguments are provided
-if [[ $# -ne 3 ]]; then
-    echo "Usage: $0 <input_file> <eps> <minPts>"
+if [[ $# -ne 4 ]]; then
+    echo "Usage: $0 <input_file> <eps> <min_pts> <norm_type>"
     exit 1
 fi
 
-output_file=$SCRIPT_DIR/hpdbscan.txt
+# output_file=$SCRIPT_DIR/hpdbscan.txt
 input_file=$(realpath $SCRIPT_DIR/$1)
 eps=$2
-minPts=$3
+min_pts=$3
+norm_type=$4
 
-# Ensure the output file is empty
-> $output_file
+
+# Create data.h5
+python3 $CSV_TO_HDF5_PROG $input_file $BUILD_DIR/data.h5
 
 # Run benchmarks
-run $input_file $output_file $eps $minPts
+echo -ne "\tmicroseconds:\t"
+$PROG -i $BUILD_DIR/data.h5 -o $BUILD_DIR/data.h5 -e $eps -m $min_pts -t 10
 
-# echo "Completed. Check the '$output_file' file!"

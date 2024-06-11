@@ -17,16 +17,17 @@ echo "Random points generated."
 input_file="../INPUTS/random_points.csv"
 
 
-# Set default values of DBSCAN parameters: eps and minPts
-eps=2    #minimize --> current value on nduja 0.35
-minPts=3    #maximize --> current value on nduja 2
+# Set default values of DBSCAN parameters: eps and min_pts
+eps=$1    #minimize --> current value on nduja 0.35
+min_pts=$2    #maximize --> current value on nduja 2
+norm_type=$3
 
 # Empty the compare.txt file or create it if it doesn't exist
 > compare.txt
 
 echo "Ensuring all scripts are executable..."
 echo "Generating results using $NUM_CLUSTERS clusters and $POINTS_PER_CLUSTER points per cluster" >> compare.txt
-echo "eps = $eps, minPts = $minPts" >> compare.txt
+echo "eps = $eps, min_pts = $min_pts" >> compare.txt
 
 echo -e "\n\n" >> compare.txt
 
@@ -40,9 +41,10 @@ echo "Executing scripts..."
 for script in "${scripts[@]}"; do
     echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
     echo "Running $script..." >> compare.txt
-    ./"$script" $input_file $eps $minPts 2>&1 >> compare.txt
+    ./"$script" $input_file $eps $min_pts $norm_type 2>&1 >> compare.txt
     csv="${script/.sh/.csv}"
-    python3 ./cluster_compare.py --input "./INPUTS/random_points.csv" --output $csv --eps $eps --min_pts $minPts >> compare.txt
+    echo -ne "\trand_index:\t\t" >> compare.txt
+    python3 ./cluster_compare.py --input "./INPUTS/random_points.csv" --output $csv --eps $eps --min_pts $min_pts >> compare.txt
     echo "--------------------------------------------------------------------------------------------------------------------------" >> compare.txt
     echo -e "\n\n" >> compare.txt
     if [ $? -ne 0 ]; then

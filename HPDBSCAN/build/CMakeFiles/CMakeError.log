@@ -1,0 +1,34 @@
+The MPI test test_mpi for C in mode normal failed to compile with the following output:
+Change Dir: /home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_25bdb/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_25bdb.dir/build.make CMakeFiles/cmTC_25bdb.dir/build
+gmake[1]: Entering directory '/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_25bdb.dir/test_mpi.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_25bdb.dir/test_mpi.c.o -c /usr/share/cmake-3.22/Modules/FindMPI/test_mpi.c
+/usr/share/cmake-3.22/Modules/FindMPI/test_mpi.c:1:10: fatal error: mpi.h: No such file or directory
+    1 | #include <mpi.h>
+      |          ^~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_25bdb.dir/build.make:78: CMakeFiles/cmTC_25bdb.dir/test_mpi.c.o] Error 1
+gmake[1]: Leaving directory '/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_25bdb/fast] Error 2
+
+
+
+The MPI test test_mpi for CXX in mode normal failed to compile with the following output:
+Change Dir: /home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_ace3b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ace3b.dir/build.make CMakeFiles/cmTC_ace3b.dir/build
+gmake[1]: Entering directory '/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_ace3b.dir/test_mpi.cpp.o
+/usr/bin/c++   -Ofast -Wall -Wextra  -std=gnu++11 -o CMakeFiles/cmTC_ace3b.dir/test_mpi.cpp.o -c /home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/FindMPI/test_mpi.cpp
+/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/FindMPI/test_mpi.cpp:1:10: fatal error: mpi.h: No such file or directory
+    1 | #include <mpi.h>
+      |          ^~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_ace3b.dir/build.make:78: CMakeFiles/cmTC_ace3b.dir/test_mpi.cpp.o] Error 1
+gmake[1]: Leaving directory '/home/iragukujije/Desktop/PersonalProjects/DBSCAN/HPDBSCAN/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_ace3b/fast] Error 2
+
+
+
