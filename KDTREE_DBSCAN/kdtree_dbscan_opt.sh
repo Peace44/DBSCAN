@@ -26,7 +26,6 @@ eps=$2
 min_pts=$3
 norm_type=$4
 
-
 # Run benchmarks
 echo -ne "\tmicroseconds:\t"
 $PROG $input_file $eps $min_pts $norm_type
