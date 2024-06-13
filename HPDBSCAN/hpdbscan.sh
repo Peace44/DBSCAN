@@ -32,7 +32,7 @@ python3 $CSV_TO_HDF5_PROG $input_file $BUILD_DIR/data.h5
 
 # Run benchmarks
 echo -ne "\tmicroseconds:\t"
-$PROG -i $BUILD_DIR/data.h5 -o $BUILD_DIR/data.h5 -e $eps -m $min_pts -t 10
+$PROG -i $BUILD_DIR/data.h5 -o $BUILD_DIR/data.h5 -e $eps -m $min_pts -t 8
 
 # Create hpdbscan.csv
-python3 $HDF5_TO_CSV_PROG $BUILD_DIR/data.h5 hpdbscan.csv
+python3 $HDF5_TO_CSV_PROG $BUILD_DIR/data.h5 $SCRIPT_DIR/hpdbscan.csv

@@ -24,4 +24,4 @@ with h5py.File(hdf5_file, 'r') as hdf:
     combined_df = pd.concat([data_df, clusters_df], axis=1)
     combined_df.to_csv(csv_file, index=False)
     
-    print(f"Successfully converted {hdf5_file} to {csv_file}")
+    # print(f"Successfully converted {hdf5_file} to {csv_file}")

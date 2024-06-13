@@ -1,4 +1,4 @@
-#include <mlpack/core.hpp>
+#include <mlpack/core.hpp> // sudo apt install libmlpack-dev
 #include <mlpack/methods/dbscan/dbscan.hpp>
 #include <mlpack/core/metrics/lmetric.hpp>
 #include <iostream>
