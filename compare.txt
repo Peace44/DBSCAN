@@ -65,7 +65,8 @@ Summary...
 	Cluster points: 122
 	Noise points:   28
 	Core points:    113
-Total time: 38881.097000 microseconds
+	
+	Total time: 38881.097000 microseconds
 	rand_index:		1.0
 --------------------------------------------------------------------------------------------------------------------------
 

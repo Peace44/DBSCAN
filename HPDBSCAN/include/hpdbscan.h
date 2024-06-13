@@ -462,7 +462,7 @@ public:
             #ifdef WITH_MPI
             if (m_rank == 0) {
             #endif
-            std::cout << "Total time: " << (omp_get_wtime() - execution_start) * 1000000 << " microseconds" << std::endl;
+            std::cout << "\n\tTotal time: " << (omp_get_wtime() - execution_start) * 1000000 << " microseconds" << std::endl;
             #ifdef WITH_MPI
             }
             #endif
