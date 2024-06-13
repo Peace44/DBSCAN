@@ -12,6 +12,7 @@ fi
 # Get the paths of the exe
 PROG=$BUILD_DIR/hpdbscan
 CSV_TO_HDF5_PROG=$SCRIPT_DIR/csv_to_hdf5.py
+HDF5_TO_CSV_PROG=$SCRIPT_DIR/hdf5_to_csv.py
 
 # Ensure the correct number of arguments are provided
 if [[ $# -ne 4 ]]; then
@@ -33,3 +34,5 @@ python3 $CSV_TO_HDF5_PROG $input_file $BUILD_DIR/data.h5
 echo -ne "\tmicroseconds:\t"
 $PROG -i $BUILD_DIR/data.h5 -o $BUILD_DIR/data.h5 -e $eps -m $min_pts -t 10
 
+# Create hpdbscan.csv
+python3 $HDF5_TO_CSV_PROG $BUILD_DIR/data.h5 hpdbscan.csv
