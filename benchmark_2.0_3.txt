@@ -1,0 +1,130 @@
+Benchmarking with eps = 2.0, min_pts = 3
+
+
+
+Running MLPACK_DBSCAN/mlpack_dbscan benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_2.0_3_1_benchmark.csv
+Average execution time: 1848.0 microseconds
+Average Rand Index: 0.9183527572741833
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_2.0_3_2_benchmark.csv
+Average execution time: 2052.4691358024693 microseconds
+Average Rand Index: 1.0
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_2.0_3_inf_benchmark.csv
+Average execution time: 1738.8364197530864 microseconds
+Average Rand Index: 0.8815368958370693
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+Running NDUJA_DBSCAN/nduja_dbscan benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+
+Benchmarking complete. Results are saved in BENCHMARKS/nduja_dbscan_2.0_3_1_benchmark.csv
+Average execution time: 678.7376543209876 microseconds
+Average Rand Index: 0.9154410370438102
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/nduja_dbscan_2.0_3_2_benchmark.csv
+Average execution time: 749.5956790123457 microseconds
+Average Rand Index: 0.9984146165041352
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/nduja_dbscan_2.0_3_inf_benchmark.csv
+Average execution time: 776.2561728395061 microseconds
+Average Rand Index: 0.9205599142366993
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+Running BASIC_DBSCAN/basic_dbscan benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+
+Benchmarking complete. Results are saved in BENCHMARKS/basic_dbscan_2.0_3_1_benchmark.csv
+Average execution time: 528.4104938271605 microseconds
+Average Rand Index: 0.9183527572741833
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/basic_dbscan_2.0_3_2_benchmark.csv
+Average execution time: 603.2777777777778 microseconds
+Average Rand Index: 1.0
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/basic_dbscan_2.0_3_inf_benchmark.csv
+Average execution time: 616.8271604938271 microseconds
+Average Rand Index: 0.9202454826955688
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+Running BASIC_DBSCAN/basic_dbscan_opt benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+
+Benchmarking complete. Results are saved in BENCHMARKS/basic_dbscan_opt_2.0_3_1_benchmark.csv
+Average execution time: 516.858024691358 microseconds
+Average Rand Index: 0.9183527572741833
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/basic_dbscan_opt_2.0_3_2_benchmark.csv
+Average execution time: 581.2962962962963 microseconds
+Average Rand Index: 1.0
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/basic_dbscan_opt_2.0_3_inf_benchmark.csv
+Average execution time: 575.5617283950618 microseconds
+Average Rand Index: 0.9202454826955688
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+Running KDTREE_DBSCAN/kdtree_dbscan benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+
+Benchmarking complete. Results are saved in BENCHMARKS/kdtree_dbscan_2.0_3_1_benchmark.csv
+Average execution time: 1880.9197530864199 microseconds
+Average Rand Index: 0.9183527572741833
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/kdtree_dbscan_2.0_3_2_benchmark.csv
+Average execution time: 2450.391975308642 microseconds
+Average Rand Index: 1.0
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/kdtree_dbscan_2.0_3_inf_benchmark.csv
+Average execution time: 2304.935185185185 microseconds
+Average Rand Index: 0.9202454826955688
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+Running KDTREE_DBSCAN/kdtree_dbscan_opt benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+
+Benchmarking complete. Results are saved in BENCHMARKS/kdtree_dbscan_opt_2.0_3_1_benchmark.csv
+Average execution time: 1265.929012345679 microseconds
+Average Rand Index: 0.8581730319776445
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/kdtree_dbscan_opt_2.0_3_2_benchmark.csv
+Average execution time: 1637.5185185185185 microseconds
+Average Rand Index: 1.0
+
+
+Benchmarking complete. Results are saved in BENCHMARKS/kdtree_dbscan_opt_2.0_3_inf_benchmark.csv
+Average execution time: 1262.3641975308642 microseconds
+Average Rand Index: 0.8581730319776445
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
