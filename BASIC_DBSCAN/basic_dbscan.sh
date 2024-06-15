@@ -21,7 +21,6 @@ if [[ $# -ne 4 ]]; then
     exit 1
 fi
 
-# output_file=$SCRIPT_DIR/basic_dbscan.txt
 input_file=$(realpath $SCRIPT_DIR/$1)
 eps=$2
 min_pts=$3

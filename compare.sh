@@ -2,7 +2,7 @@
 clear 
 
 # Define an array with script names
-scripts=("BASIC_DBSCAN/basic_dbscan.sh" "BASIC_DBSCAN/basic_dbscan_opt.sh" "BASIC_DBSCAN++/basic_dbscan++.sh"   "KDTREE_DBSCAN/kdtree_dbscan.sh" "KDTREE_DBSCAN/kdtree_dbscan_opt.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh" "HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh")
+scripts=("HPDBSCAN/hpdbscan.sh" "NDUJA_DBSCAN/nduja_dbscan.sh" "BASIC_DBSCAN/basic_dbscan.sh" "BASIC_DBSCAN/basic_dbscan_opt.sh" "BASIC_DBSCAN++/basic_dbscan++.sh" "KDTREE_DBSCAN/kdtree_dbscan.sh" "KDTREE_DBSCAN/kdtree_dbscan_opt.sh" "MLPACK_DBSCAN/mlpack_dbscan.sh")
 
 # generate random points : NUM_CLUSTERS * POINTS_PER_CLUSTER = number of points generated 
 # NUM_CLUSTERS=7

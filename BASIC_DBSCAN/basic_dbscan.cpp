@@ -50,9 +50,9 @@ double euclidean_distance_sqrd(const Point3D& a, const Point3D& b)
 {
     // dist_func_counter++;
 
-    double _dx_ = a.x - b.x; // no need to calculate abs here
-    double _dy_ = a.y - b.y; // no need to calculate abs here
-    double _dz_ = a.z - b.z; // no need to calculate abs here
+    double _dx_ = std::abs(a.x - b.x); // no need to calculate abs here
+    double _dy_ = std::abs(a.y - b.y); // no need to calculate abs here
+    double _dz_ = std::abs(a.z - b.z); // no need to calculate abs here
 
     return (_dx_ * _dx_) + (_dy_ * _dy_) + (_dz_ * _dz_);
 }
