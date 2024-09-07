@@ -25,7 +25,7 @@ for exe in "${exes[@]}"; do
     echo "--------------------------------------------------------------------------------------------------------------------------" >> $benchmark
     for norm_type in ${norm_types[@]}; do
         echo "" >> $benchmark
-        python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/CSVs --eps $eps --min_pts $min_pts --norm_type $norm_type >> $benchmark
+        python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/csvs --eps $eps --min_pts $min_pts --norm_type $norm_type >> $benchmark
         echo "" >> $benchmark
     done
     echo "--------------------------------------------------------------------------------------------------------------------------" >> $benchmark
