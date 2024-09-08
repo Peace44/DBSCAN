@@ -6,7 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import time
 
 # Directory where your CSV files are stored
-csv_directory = './INPUTS/csvs'
+csv_directory = './csvs'
 
 # Function to extract the number from the filename (e.g., 'cloud123.csv' -> 123)
 def extract_number(filename):
