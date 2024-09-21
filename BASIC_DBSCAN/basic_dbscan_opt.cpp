@@ -193,7 +193,7 @@ int main(int argc, char *argv[]) {
     std::vector<Point3D> points = read_points_from_csv(input_filename);
 
     // Parameters for DBSCAN
-    double eps = std::atoi(argv[2]); // Adjust based on your dataset
+    double eps = std::stod(argv[2]); // Adjust based on your dataset
     int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
 
     // Parameter for the distance function
