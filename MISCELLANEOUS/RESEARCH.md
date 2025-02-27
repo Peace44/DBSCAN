@@ -37,6 +37,7 @@ each circle
 Most points are awarded for the Trackdrive event since it is the most complicated
 and proves each team's capabilities to optimize the lap time through innovative algorithms. 
 """
+
 5. I would like a guide to implementing the best perception software system
 
 
