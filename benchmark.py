@@ -3,6 +3,7 @@ import subprocess
 import csv
 import argparse
 import time
+import numpy as np
 
 # Argument parser configuration
 parser = argparse.ArgumentParser(description='Benchmark DBSCAN program on multiple CSV files.')
@@ -33,9 +34,10 @@ with open(output_file, mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["filename", "duration_microseconds", "rand_index"])  # Write the header
 
-    total_duration = 0
-    total_rand_index = 0
     num_files = 0
+
+    durations = []
+    rand_indexes = []
 
     # Iterate over each CSV file
     for csv_file in csv_files:
@@ -68,15 +70,24 @@ with open(output_file, mode='w', newline='') as file:
         # Write the result to the CSV file
         writer.writerow([csv_file, duration, rand_index])
         
-        # Update total duration, total rand_index, and file count
-        total_duration += duration
-        total_rand_index += rand_index
+        # Update file count
         num_files += 1
 
+        # Update durations and rand_indexes
+        durations.append(duration)
+        rand_indexes.append(rand_index)
+
 # Calculate average duration and average rand_index
-average_duration = total_duration / num_files if num_files > 0 else 0
-average_rand_index = total_rand_index / num_files if num_files > 0 else 0
+median_duration = np.median(durations)
+median_rand_index = np.median(rand_indexes)
+
+average_duration = np.mean(durations)
+average_rand_index = np.mean(rand_indexes)
 
 print(f"Benchmarking complete. Results are saved in {output_file}")
+
+print(f"Median execution time: {median_duration} microseconds")
+print(f"Median Rand Index: {median_rand_index}")
+
 print(f"Average execution time: {average_duration} microseconds")
 print(f"Average Rand Index: {average_rand_index}")

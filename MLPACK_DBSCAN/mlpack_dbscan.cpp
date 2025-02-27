@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     dataset = dataset.t(); // Transpose the dataset because it's loaded with each point as a row, and we need points as cols for mlpack
 
     // Parameters for DBSCAN
-    double eps = std::atof(argv[2]); // Adjust based on your dataset
+    double eps = std::stod(argv[2]); // Adjust based on your dataset
     int min_pts = std::atoi(argv[3]); // Adjust based on your dataset
     std::string norm_type = argv[4];
 
