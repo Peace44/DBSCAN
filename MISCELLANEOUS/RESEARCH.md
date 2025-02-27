@@ -31,7 +31,6 @@ In the dynamic events, where performances achieved are measured directly on the 
 • Trackdrive: 10 runs of an unknown track
 <br /><br />
 Most points are awarded for the Trackdrive event since it is the most complicated and proves each team's capabilities to optimize the lap time through innovative algorithms.
-<br />
 """
 
 6. I would like a guide to implementing the best perception software system
