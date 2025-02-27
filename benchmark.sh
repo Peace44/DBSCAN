@@ -1,11 +1,13 @@
 #!/bin/bash
 clear 
 
-exes=("MLPACK_DBSCAN/mlpack_dbscan" "NDUJA_DBSCAN/nduja_dbscan" "BASIC_DBSCAN/basic_dbscan" "BASIC_DBSCAN/basic_dbscan_opt" "KDTREE_DBSCAN/kdtree_dbscan" "KDTREE_DBSCAN/kdtree_dbscan_opt") # "BASIC_DBSCAN++/basic_dbscan++" "HPDBSCAN/hpdbscan" 
+exes=("BASIC_DBSCAN/basic_dbscan_opt" "BASIC_DBSCAN/basic_dbscan" "NDUJA_DBSCAN/nduja_dbscan" "KDTREE_DBSCAN/kdtree_dbscan_opt" "KDTREE_DBSCAN/kdtree_dbscan" "MLPACK_DBSCAN/mlpack_dbscan") # "BASIC_DBSCAN++/basic_dbscan++" "HPDBSCAN/hpdbscan" 
 
 # Set default values of DBSCAN parameters: eps and min_pts
-eps=$1 #minimize --> current value on nduja 0.35
-min_pts=$2 #maximize --> current value on nduja 2
+# eps=$1 #minimize --> current value on nduja 0.35
+# min_pts=$2 #maximize --> current value on nduja 2
+eps=("0.25" "0.5" "1") 
+min_pts=("2" "4" "8") 
 norm_types=("1" "2" "inf") 
 
 # Empty the benchmark txt file or create it if it doesn't exist
@@ -23,10 +25,17 @@ for exe in "${exes[@]}"; do
 
     echo "Running $exe benchmark..." >> $benchmark
     echo "--------------------------------------------------------------------------------------------------------------------------" >> $benchmark
-    for norm_type in ${norm_types[@]}; do
-        echo "" >> $benchmark
-        python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/csvs --eps $eps --min_pts $min_pts --norm_type $norm_type >> $benchmark
-        echo "" >> $benchmark
+    # loop on all epsilon values, min_points and norm_type
+    for epsilon in ${eps[@]}; do
+        for minPts in ${min_pts[@]}; do
+            for norm_type in ${norm_types[@]}; do
+        
+                echo "" >> $benchmark
+
+                python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/csvs --eps $epsilon --min_pts $minPts --norm_type $norm_type >> $benchmark
+                echo "" >> $benchmark
+            done
+        done
     done
     echo "--------------------------------------------------------------------------------------------------------------------------" >> $benchmark
     echo -e "\n\n" >> $benchmark
