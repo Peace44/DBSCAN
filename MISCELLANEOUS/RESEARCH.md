@@ -22,7 +22,6 @@ These details will help tailor the research for your specific needs.
 2. I don't have a preferred programming language or technology.
 3.  a 64-channel Ouster LiDAR + a NVIDIA Jetson AGX Orin Computer.
 4. """
-<br />
 In general, the circuit is made of cones of different sizes (big and small) & colors (yellow with a single black stripe, blue with a single white stripe, and orange with a single/double white stripe(s)) which must be recognized by the car first, which then moves accordingly in the fastest time possible.
 <br /><br />
 In the dynamic events, where performances achieved are measured directly on the track, teams are called to let the car run through four different disciplines:
