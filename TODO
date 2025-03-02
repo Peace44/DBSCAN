@@ -2,3 +2,6 @@
 (2) NEED TO POSSIBLY IMPLEMENT ALSO 1-NORM & INF-NORM ON HPDBSCAN!
 (3) NEED TO MAKE BASIC_DBSCAN++ WORK!
 (4) NEED A COMPREHENSIVE BENCHMARK ON ALL THE csvs INSIDE THE /INPUTS/CSVs FOLDER
+(5) Optimize Memory Usage and Data Locality in kdtree_dbscan_OPT
+    * Preallocate and Reuse Containers: Instead of allocating new vectors for neighbors in every call to find_neighbors, reuse a preallocated vector. This reduces dynamic memory allocation overhead in your critical loops.
+    * Contiguous Data Structures: Ensure your Point3D objects are stored in a cache-friendly layout. For instance, storing coordinates in separate arrays (Structure of Arrays) could further improve cache locality if your access pattern benefits from it.
