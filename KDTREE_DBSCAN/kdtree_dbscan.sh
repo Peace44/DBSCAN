@@ -9,7 +9,7 @@ PROG=$SCRIPT_DIR/kdtree_dbscan
 KDTREE_CPP=$SCRIPT_DIR/KDTree.cpp
 
 # Compile the program
-g++ -O3 $PROG_CPP $KDTREE_CPP -o $PROG -std=c++17
+g++ -O3 -march=native -flto $PROG_CPP $KDTREE_CPP -o $PROG -std=c++17
 if [[ $? -ne 0 ]]; then
     echo "Compilation failed."
     exit 1

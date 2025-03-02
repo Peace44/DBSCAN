@@ -8,7 +8,7 @@ PROG_CPP=$SCRIPT_DIR/basic_dbscan++.cpp
 PROG=$SCRIPT_DIR/basic_dbscan++
 
 # Compile the program
-g++ -O3 $PROG_CPP -o $PROG -std=c++17
+g++ -O3 -march=native -flto $PROG_CPP -o $PROG -std=c++17
 if [[ $? -ne 0 ]]; then
     echo "Compilation failed."
     exit 1

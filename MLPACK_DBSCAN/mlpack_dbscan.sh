@@ -8,7 +8,7 @@ MLPACK_CPP=$SCRIPT_DIR/mlpack_dbscan.cpp
 PROG=$SCRIPT_DIR/mlpack_dbscan
 
 # Compile the program
-g++ -O3 -std=c++17 -o $PROG $MLPACK_CPP -larmadillo -lmlpack -fopenmp
+g++ -O3 -march=native -flto -std=c++17 -o $PROG $MLPACK_CPP -larmadillo -lmlpack -fopenmp
 if [[ $? -ne 0 ]]; then
     echo "Compilation failed."
     exit 1

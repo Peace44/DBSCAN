@@ -4,14 +4,14 @@
 SCRIPT_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
 
 # Get the paths of the program & the exe
-PROG_CPP=$SCRIPT_DIR/main.cpp
-DBSCAN_CPP=$SCRIPT_DIR/nduja_dbscan.cpp
-PROG=$SCRIPT_DIR/nduja_dbscan
+PROG_CPP=$SCRIPT_DIR/kdtree_dbscan_OPT.cpp
+PROG=$SCRIPT_DIR/kdtree_dbscan_OPT
 
 # Compile the program
-g++ -O3 -march=native -flto $DBSCAN_CPP $PROG_CPP -o $PROG -std=c++17
+g++ -O3 -march=native -flto -march=native -flto -march=native -flto $PROG_CPP -o $PROG -std=c++17
+
 if [[ $? -ne 0 ]]; then
-    echo "Compilation failed."
+    echo "Compilation failed!"
     exit 1
 fi
 
@@ -25,7 +25,6 @@ input_file=$(realpath $SCRIPT_DIR/$1)
 eps=$2
 min_pts=$3
 norm_type=$4
-
 
 # Run benchmarks
 echo -ne "\tmicroseconds:\t"
