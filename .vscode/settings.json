@@ -75,5 +75,6 @@
         "ranges": "cpp",
         "stop_token": "cpp",
         "semaphore": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/home/temp/Scrivania/DBSCAN/HPDBSCAN"
 }

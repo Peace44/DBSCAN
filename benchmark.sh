@@ -1,7 +1,7 @@
 #!/bin/bash
 clear 
 
-exes=("KDTREE_DBSCAN/kdtree_dbscan_opt") 
+exes=("KDTREE_DBSCAN/kdtree_dbscan_OPT") 
 # exes=("BASIC_DBSCAN/basic_dbscan_opt" "BASIC_DBSCAN/basic_dbscan" "NDUJA_DBSCAN/nduja_dbscan" "KDTREE_DBSCAN/kdtree_dbscan_opt" "KDTREE_DBSCAN/kdtree_dbscan" "MLPACK_DBSCAN/mlpack_dbscan") # "BASIC_DBSCAN++/basic_dbscan++" "HPDBSCAN/hpdbscan" 
 
 # Set default values of DBSCAN parameters: eps and min_pts
