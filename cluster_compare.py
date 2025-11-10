@@ -12,11 +12,13 @@ parser.add_argument('--input', type=str, default="")
 parser.add_argument('--output', type=str, default="")
 parser.add_argument('--eps', type=float, default=EPS)
 parser.add_argument('--min_pts', type=int, default=MIN_PTS)
+parser.add_argument('--metric', type=str, default="euclidean", choices=["euclidean", "manhattan", "chebyshev"])
 args = parser.parse_args()
 input = args.input
 output = args.output
 eps  = args.eps
 min_pts = args.min_pts
+metric = args.metric
 
 
 
@@ -28,7 +30,7 @@ points = df.values[:, :3]  # Assuming the points are in the first three columns
 
 
 # Step 2: Perform DBSCAN clustering
-dbscan = DBSCAN(eps=eps, min_samples=min_pts) 
+dbscan = DBSCAN(eps=eps, min_samples=min_pts, metric=metric) 
 clusters = dbscan.fit_predict(points)
 
 # Step 3: Load the dataset with existing cluster assignments

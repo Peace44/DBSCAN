@@ -10,7 +10,7 @@ In order to generate the random points for the input file, you should have the f
 - pandas
 - sklearn
 
-Can use `pip install numpy pandas sklearn` to install them.
+Can use `pip install numpy pandas scikit-learn` to install them.
 
 
 

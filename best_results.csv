@@ -1,0 +1,5 @@
+Algorithm,eps,minPts,norm type,medianexecution time,median rand index,average execution time,average rand index
+kdtree_dbscan,0.25,2,1,234.50,1.00,271.09,1.00
+old_dbscan,0.25,2,1,487.00,0.97,548.41,0.96
+basic_dbscan,0.25,2,1,397.50,1.00,426.92,1.00
+mlpack_dbscan,0.25,2,1,618.50,1.00,663.14,1.00

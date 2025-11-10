@@ -1,8 +1,9 @@
 #!/bin/bash
 clear 
 
-exes=("KDTREE_DBSCAN/kdtree_dbscan_OPT") 
-# exes=("BASIC_DBSCAN/basic_dbscan_opt" "BASIC_DBSCAN/basic_dbscan" "NDUJA_DBSCAN/nduja_dbscan" "KDTREE_DBSCAN/kdtree_dbscan_opt" "KDTREE_DBSCAN/kdtree_dbscan" "MLPACK_DBSCAN/mlpack_dbscan") # "BASIC_DBSCAN++/basic_dbscan++" "HPDBSCAN/hpdbscan" 
+# exes=("KDTREE_DBSCAN/kdtree_dbscan_OPT") 
+# exes=("BASIC_DBSCAN/basic_dbscan_opt" "NDUJA_DBSCAN/nduja_dbscan" "KDTREE_DBSCAN/kdtree_dbscan_OPT" 
+exes=("MLPACK_DBSCAN/mlpack_dbscan" "HPDBSCAN/hpdbscan" ) # "BASIC_DBSCAN++/basic_dbscan++" "HPDBSCAN/hpdbscan" 
 
 # Set default values of DBSCAN parameters: eps and min_pts
 # eps=$1 #minimize --> current value on nduja 0.35
@@ -13,7 +14,7 @@ norm_types=("1" "2" "inf")
 
 # Empty the benchmark txt file or create it if it doesn't exist
 # benchmark="benchmark_${eps}_${min_pts}.txt"
-benchmark="benchmark.txt"
+benchmark="benchmark3.txt"
 
 > $benchmark
 
@@ -31,10 +32,9 @@ for exe in "${exes[@]}"; do
     for epsilon in ${eps[@]}; do
         for minPts in ${min_pts[@]}; do
             for norm_type in ${norm_types[@]}; do
-        
-                echo "" >> $benchmark
+                
 
-                python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/csvs --eps $epsilon --min_pts $minPts --norm_type $norm_type >> $benchmark
+                python3 benchmark.py --dbscan_program $exe --input_dir INPUTS/csvs --eps $epsilon --min_pts $minPts --norm_type $norm_type  >> $benchmark
                 echo "" >> $benchmark
             done
         done

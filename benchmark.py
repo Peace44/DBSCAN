@@ -12,7 +12,6 @@ parser.add_argument('--input_dir', type=str, help='Directory containing CSV file
 parser.add_argument('--eps', type=float, help='Epsilon parameter for DBSCAN')
 parser.add_argument('--min_pts', type=int, help='Minimum points parameter for DBSCAN')
 parser.add_argument('--norm_type', type=str, help='Norm type for DBSCAN (1, 2, inf)')
-
 args = parser.parse_args()
 
 # Configuration from command line arguments
@@ -21,6 +20,14 @@ input_dir = args.input_dir
 eps = args.eps
 min_pts = args.min_pts
 norm_type = args.norm_type
+
+if norm_type == "1":
+    metric = "manhattan"
+elif norm_type == "2":
+    metric = "euclidean"
+else:
+    metric = "chebyshev"
+
 
 # Extract the name of the DBSCAN program executable
 exe_name = os.path.basename(dbscan_program)
@@ -60,7 +67,7 @@ with open(output_file, mode='w', newline='') as file:
 
         # Run cluster_compare.py and capture the Rand Index
         compare_result = compare_result = subprocess.run(
-            ['python3', 'cluster_compare.py', '--input', input_file, '--output', dbscan_program_output, '--eps', str(eps), '--min_pts', str(min_pts)],
+            ['python3', 'cluster_compare.py', '--input', input_file, '--output', dbscan_program_output, '--eps', str(eps), '--min_pts', str(min_pts), '--metric', metric],
             capture_output=True,
             text=True
         )

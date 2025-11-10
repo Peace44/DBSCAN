@@ -1,0 +1,201 @@
+ Running MLPACK_DBSCAN/mlpack_dbscan benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_2_1_benchmark.csv
+Median execution time: 618.5 microseconds
+Median Rand Index: 1.0
+Average execution time: 663.1388888888889 microseconds
+Average Rand Index: 1.0
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_2_2_benchmark.csv
+Median execution time: 685.0 microseconds
+Median Rand Index: 1.0
+Average execution time: 727.9753086419753 microseconds
+Average Rand Index: 1.0
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_2_inf_benchmark.csv
+Median execution time: 1021.5 microseconds
+Median Rand Index: 0.9658763192568648
+Average execution time: 1274.3086419753085 microseconds
+Average Rand Index: 0.9332449639817875
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_4_1_benchmark.csv
+Median execution time: 655.0 microseconds
+Median Rand Index: 0.9419783985631591
+Average execution time: 677.7592592592592 microseconds
+Average Rand Index: 0.924568400258645
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_4_2_benchmark.csv
+Median execution time: 710.0 microseconds
+Median Rand Index: 0.9877403014043391
+Average execution time: 752.5432098765432 microseconds
+Average Rand Index: 0.9831843685719425
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_4_inf_benchmark.csv
+Median execution time: 1100.5 microseconds
+Median Rand Index: 0.9295815279510411
+Average execution time: 1361.2746913580247 microseconds
+Average Rand Index: 0.9116966977936829
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_8_1_benchmark.csv
+Median execution time: 660.0 microseconds
+Median Rand Index: 0.8380658525226341
+Average execution time: 696.4598765432099 microseconds
+Average Rand Index: 0.7794121196397267
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_8_2_benchmark.csv
+Median execution time: 693.0 microseconds
+Median Rand Index: 0.8487740019579386
+Average execution time: 730.8271604938271 microseconds
+Average Rand Index: 0.8003049567758618
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.25_8_inf_benchmark.csv
+Median execution time: 1057.0 microseconds
+Median Rand Index: 0.759698943710154
+Average execution time: 1372.0216049382716 microseconds
+Average Rand Index: 0.7411000525206196
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_2_1_benchmark.csv
+Median execution time: 760.5 microseconds
+Median Rand Index: 1.0
+Average execution time: 823.4228395061729 microseconds
+Average Rand Index: 1.0
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_2_2_benchmark.csv
+Median execution time: 820.0 microseconds
+Median Rand Index: 1.0
+Average execution time: 905.8117283950618 microseconds
+Average Rand Index: 1.0
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_2_inf_benchmark.csv
+Median execution time: 1025.5 microseconds
+Median Rand Index: 0.9948373793962029
+Average execution time: 1250.2777777777778 microseconds
+Average Rand Index: 0.9786887432673419
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_4_1_benchmark.csv
+Median execution time: 746.0 microseconds
+Median Rand Index: 0.99767281550377
+Average execution time: 801.3425925925926 microseconds
+Average Rand Index: 0.9951274388915714
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_4_2_benchmark.csv
+Median execution time: 796.5 microseconds
+Median Rand Index: 0.9996938081884048
+Average execution time: 891.358024691358 microseconds
+Average Rand Index: 0.9976894461363275
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_4_inf_benchmark.csv
+Median execution time: 1158.5 microseconds
+Median Rand Index: 0.9893056100957123
+Average execution time: 1466.4444444444443 microseconds
+Average Rand Index: 0.9745490342199423
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_8_1_benchmark.csv
+Median execution time: 735.5 microseconds
+Median Rand Index: 0.9105539426171361
+Average execution time: 805.8395061728395 microseconds
+Average Rand Index: 0.8914169231516923
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_8_2_benchmark.csv
+Median execution time: 779.5 microseconds
+Median Rand Index: 0.9528336179198248
+Average execution time: 905.4598765432099 microseconds
+Average Rand Index: 0.9498432072144546
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_0.5_8_inf_benchmark.csv
+Median execution time: 1184.5 microseconds
+Median Rand Index: 0.9460903602995202
+Average execution time: 1415.888888888889 microseconds
+Average Rand Index: 0.9346902432037273
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_2_1_benchmark.csv
+Median execution time: 938.0 microseconds
+Median Rand Index: 1.0
+Average execution time: 1100.429012345679 microseconds
+Average Rand Index: 1.0
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_2_2_benchmark.csv
+Median execution time: 961.0 microseconds
+Median Rand Index: 1.0
+Average execution time: 1165.2037037037037 microseconds
+Average Rand Index: 1.0
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_2_inf_benchmark.csv
+Median execution time: 1352.0 microseconds
+Median Rand Index: 1.0
+Average execution time: 1564.219135802469 microseconds
+Average Rand Index: 1.0
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_4_1_benchmark.csv
+Median execution time: 892.0 microseconds
+Median Rand Index: 1.0
+Average execution time: 1097.9845679012346 microseconds
+Average Rand Index: 0.9988053130001515
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_4_2_benchmark.csv
+Median execution time: 915.5 microseconds
+Median Rand Index: 1.0
+Average execution time: 1176.966049382716 microseconds
+Average Rand Index: 0.999180500781306
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_4_inf_benchmark.csv
+Median execution time: 1235.5 microseconds
+Median Rand Index: 1.0
+Average execution time: 1544.2993827160494 microseconds
+Average Rand Index: 0.9990799846730218
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_8_1_benchmark.csv
+Median execution time: 919.0 microseconds
+Median Rand Index: 0.9877028397590977
+Average execution time: 1062.0864197530864 microseconds
+Average Rand Index: 0.9810832587591309
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_8_2_benchmark.csv
+Median execution time: 961.5 microseconds
+Median Rand Index: 0.989992850742311
+Average execution time: 1174.9969135802469 microseconds
+Average Rand Index: 0.9827526094840018
+
+Benchmarking complete. Results are saved in BENCHMARKS/mlpack_dbscan_1.0_8_inf_benchmark.csv
+Median execution time: 1280.5 microseconds
+Median Rand Index: 0.9921298631527637
+Average execution time: 1569.8858024691358 microseconds
+Average Rand Index: 0.9835620227888533
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+Running HPDBSCAN/hpdbscan benchmark...
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
