@@ -14,3 +14,7 @@ INPUTS/random_points.csv
 
 compare.txt
 
+__pycache__/
+BENCHMARKS/
+BENCHMARKS_AVGS/
+venv/
